@@ -1,26 +1,30 @@
 import React from "react";
 import { Button, Layout, Typography, Pagination } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
+import {
+  handleManualNext,
+  handlePageChange,
+  selectPage,
+  selectPerPage,
+  selectTotal,
+} from "../../../app-redux/modules/gist/gistSlice";
+import { useAppDispatch, useAppSelector } from "../../../app-redux/hooks";
 const { Content } = Layout;
 const { Text } = Typography;
 
-type Props = {
-  onPageChange: any;
-  onNext: any;
-  page: number;
-  total: number;
-};
+type Props = {};
 
-const PaginationWrap: React.FC<Props> = ({
-  onPageChange,
-  onNext,
-  page,
-  total,
-}) => {
-  const handlePaginationChange = (newPage: any) => {
-    console.log("Page", newPage);
-    onPageChange(newPage);
-    // onPageChange(newPage, additionalParam);
+const PaginationWrap: React.FC<Props> = () => {
+  const dispatch = useAppDispatch();
+  const page = useAppSelector(selectPage);
+  const perPage = useAppSelector(selectPerPage);
+  const total = useAppSelector(selectTotal);
+
+  const handleChange = (newPage: any) => {
+    dispatch(handlePageChange(newPage));
+  };
+  const onNext = (newPage: any) => {
+    dispatch(handleManualNext());
   };
   return (
     <Content className="pagination-wrap">
@@ -32,10 +36,10 @@ const PaginationWrap: React.FC<Props> = ({
       </Text>
       <Pagination
         size="small"
-        total={3000}
-        showSizeChanger={false}
+        total={total}
         showLessItems
-        onChange={handlePaginationChange}
+        showSizeChanger={false}
+        onChange={handleChange}
       />
     </Content>
   );

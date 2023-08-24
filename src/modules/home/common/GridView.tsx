@@ -30,10 +30,14 @@ import CardSlate from "../../../components/common/BlankSlate/CardSlate";
 import PaginationWrap from "./Pagination";
 import { useAppDispatch, useAppSelector } from "../../../app-redux/hooks";
 import {
+  handlePageChange,
   selectIsLoading,
+  selectPage,
+  selectPerPage,
   selectPublicGist,
 } from "../../../app-redux/modules/gist/gistSlice";
 import { getGistPublic } from "../../../app-redux/modules/gist/actions/gistActions";
+import ToggleButtons from "./ToggleButtons";
 const { Meta } = Card;
 const { Title, Text } = Typography;
 
@@ -41,47 +45,24 @@ interface GridProps {}
 const GridView: React.FC<GridProps> = ({}) => {
   const skeltonData = new Array(12).fill(null);
   const isLoading = useAppSelector(selectIsLoading);
+  const page = useAppSelector(selectPage);
+  const perPage = useAppSelector(selectPerPage);
   const dispatch = useAppDispatch();
   const pageRecord = useAppSelector(selectPublicGist);
-  const [page, setPage] = useState<number>(1);
-  const [perPage, setPerPage] = useState<number>(12);
-  const total = 3000;
 
   React.useEffect(() => {
     dispatch(getGistPublic({ page, perPage }));
   }, [dispatch, page]);
 
-  const handlePageChange = (newPage: number) => {
-    setPage(newPage);
-  };
-  const handleManualNext = () => {
-    setPage(page + 1);
-  };
   return (
     <>
-      <Content className="page-icons">
-        <AppstoreOutlined /> {" | "}
-        <BarsOutlined />
-      </Content>
+      <ToggleButtons />
       <Row className="grid-card-content">
         {pageRecord.length > 0 && !isLoading
-          ? pageRecord.map((item: any, index: any) => (
-              <Col key={item.id} xs={24} sm={12} md={8} lg={8}>
-                <GridCard item={item} />
-              </Col>
-            ))
-          : skeltonData.map((_, index) => (
-              <Col key={index} xs={24} sm={12} md={8} lg={8}>
-                <CardSlate />
-              </Col>
-            ))}
+          ? pageRecord.map((item: any, index: any) => <GridCard item={item} />)
+          : skeltonData.map((_, index) => <CardSlate />)}
       </Row>
-      <PaginationWrap
-        onPageChange={handlePageChange}
-        onNext={handleManualNext}
-        page={page}
-        total={total}
-      />
+      <PaginationWrap />
     </>
   );
 };

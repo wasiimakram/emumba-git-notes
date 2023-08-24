@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Typography, Table } from "antd";
+import { Layout, Typography, Table, Skeleton, Pagination } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import "./../home.scss";
 import {
@@ -9,87 +9,73 @@ import {
   StarOutlined,
 } from "@ant-design/icons";
 import { Content } from "antd/es/layout/layout";
-import { selectPublicGist } from "../../../app-redux/modules/gist/gistSlice";
-import { useAppSelector } from "../../../app-redux/hooks";
+import {
+  handlePageChange,
+  resetListingValues,
+  selectIsLoading,
+  selectPage,
+  selectPerPage,
+  selectPublicGist,
+  selectTotal,
+} from "../../../app-redux/modules/gist/gistSlice";
+import { useAppDispatch, useAppSelector } from "../../../app-redux/hooks";
+import { getGistPublic } from "../../../app-redux/modules/gist/actions/gistActions";
+import { useDispatch } from "react-redux";
+import Columns from "./Column";
+import ToggleButtons from "./ToggleButtons";
 
 const ListView: React.FC = () => {
+  const page = useAppSelector(selectPage);
+  const perPage = useAppSelector(selectPerPage);
+  const total = useAppSelector(selectTotal);
   const pageRecord = useAppSelector(selectPublicGist);
-  let tableData: any = [];
-  interface DataType {
-    key: React.Key;
-    name: string;
-    date: string;
-    time: string;
-    keyword: string;
-    notebook: string;
-  }
-  const columns: ColumnsType<DataType> = [
-    {
-      title: "Name",
-      dataIndex: "name",
-      render: () => (
-        <>
-          <StarOutlined className="table-action" />
-          <ForkOutlined className="table-action" />
-        </>
-      ),
-    },
-    {
-      title: "Date",
-      dataIndex: "date",
-    },
-    {
-      title: "Time",
-      dataIndex: "time",
-    },
-    {
-      title: "Keyword",
-      dataIndex: "keyword",
-    },
-    {
-      title: "Notbook Name",
-      dataIndex: "notebook",
-    },
-    {
-      title: "Action",
-      dataIndex: "",
-      key: "x",
-      render: () => (
-        <>
-          <StarOutlined className="table-action" />
-          <ForkOutlined className="table-action" />
-        </>
-      ),
-    },
-  ];
+  const isLoading = useAppSelector(selectIsLoading);
+  const dispatch = useAppDispatch();
+  React.useEffect(() => {
+    dispatch(getGistPublic({ page, perPage }));
+  }, [dispatch, page]);
   useEffect(() => {
-    console.log("pageRecord", pageRecord);
-    tableData = pageRecord.data.map((item: any) => ({
-      key: item.id.toString(),
-      name: item.owner.login,
-      date: item.created_at, // You might need to format this
-      time: item.created_at, // You might need to format this
-      keyword: "WebServer", // Replace with actual keyword if available
-      notebook: "server.xml", // Replace with actual notebook if available
-      image: item.owner.avatar_url, // Use the avatar_url from the owner object
-    }));
-  }, [pageRecord]);
+    return () => {
+      //unmount
+      dispatch(resetListingValues());
+    };
+  }, []);
+
+  const updateRecord = pageRecord.map((item: any) => ({
+    key: item.id.toString(),
+    name: item.owner.login,
+    date: item.created_at,
+    time: item.created_at,
+    keyword: "WebServer",
+    notebook: Object.keys(item.files)[0] || "-",
+    image: item.owner.avatar_url,
+  }));
+  const emptyData = new Array(12).fill({}).map((_, index) => ({ key: index }));
 
   return (
-    <>
-      <Content className="page-icons">
-        <AppstoreOutlined /> {" | "}
-        <BarsOutlined />
-      </Content>
+    <Content className="list-view">
+      <ToggleButtons />
       <Table
-        rowSelection={{
-          type: "checkbox",
-        }}
+        rowSelection={{ type: "checkbox" }}
         className="page-table"
-        columns={columns}
-        dataSource={tableData}
+        columns={Columns()}
+        dataSource={!isLoading ? updateRecord : emptyData}
+        loading={isLoading}
+        pagination={false}
       />
-    </>
+      <Pagination
+        current={page}
+        pageSize={perPage}
+        total={total}
+        onChange={(page) => {
+          dispatch(handlePageChange(page));
+        }}
+        showSizeChanger={false}
+        showTotal={(total, range) =>
+          `${range[0]}-${range[1]} of ${total} items`
+        }
+      />
+    </Content>
   );
 };
 export default ListView;

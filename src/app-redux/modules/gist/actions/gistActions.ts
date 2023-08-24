@@ -14,9 +14,6 @@ interface GistApiResponse {
 export const getGistPublic = createAsyncThunk<ApiResponse, GetGistPublicArgs>(
     "gist/getGistPublic",
     async ({ page, perPage }) => {
-        console.log("action", page, perPage)
-        // const page = 1;
-        // const perPage = 12;
         try {
             const res = await ax.get(
                 `/gists/public?per_page=${perPage}&page=${page}`

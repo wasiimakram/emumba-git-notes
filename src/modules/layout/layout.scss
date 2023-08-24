@@ -51,4 +51,11 @@
             background: $white_color;
         }
     }
+    .profile-img{
+        cursor: pointer;
+        width: 50px;
+        height: auto;
+        margin-top: 7px;
+        border-radius: 50%;
+    }
 }
