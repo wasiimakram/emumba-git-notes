@@ -1,0 +1,18 @@
+@import './../../../scss/variables';
+.icons{
+    display: flex;
+    justify-content: flex-end;
+    .wrap{
+        margin-right: 10px;
+    }
+    span{
+        color:$primary_color_5;
+    }
+    .counter{
+        color:$gray_color;
+        padding: 0px 10px;
+        border-radius: 5px;
+        margin: 0px 5px 0px 1px;
+        border: 1px solid $gray_color;
+    }
+}

@@ -1,0 +1,61 @@
+@import './../../scss/variables';
+
+.gist-main-wrap {
+    padding: 30px 180px;
+    .intro-wrap{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .profile-wrap{
+            border-top: none;
+        }
+        
+    }
+    .code-view{
+        margin-top: 15px;
+        .gist__bash{
+            h2{
+                color:$primary_color_5;                
+                text-align: initial;
+                font-size: 15px;
+                margin-bottom: 4px;
+                font-weight: 400;
+            }
+            .gist-meta{display: none;}
+        }
+        // for edit code 
+        .ace_editor{
+            width: 100% !important;
+            height: 500px !important;
+            font-size: 12px;
+            border: 1px solid $primary_color_4;
+            border-radius: 5px;
+            .ace_print-margin{
+                background: none;
+                left:none;
+            }
+        }
+    }
+    .add-wrap{
+        input{
+            margin-bottom: 15px;
+        }
+        .upload{
+            
+            display: flex;
+            .ant-upload{
+                margin-top: 10px;
+                button{
+                    background: $primary_color_1;
+                    color:$white_color;
+                }
+            }
+        }
+        .add{
+            margin-top: 10px;
+            display: flex;
+            background: $primary_color_1;
+            color:$white_color
+        }
+    }
+}

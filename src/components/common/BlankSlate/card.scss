@@ -1,0 +1,22 @@
+@import './../../../scss/variables';
+.footer-wrap{
+    border-top: 1px solid $primary_color_4;
+    display: flex;
+    img{
+        width: 70px;
+        height: 70px;
+        border-radius: 44px;
+        margin-top: 20px;
+    }
+    .ant-layout-content{
+        text-align: start;
+        margin-left: 15px;
+        .title{
+            margin-bottom: 0px;
+            color: $primary_color_3;
+        }
+        span{
+            color:$primary_color_4
+        }
+    }
+}

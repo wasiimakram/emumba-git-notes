@@ -1,0 +1,33 @@
+@import './../../../scss/variables';
+.gist__bash{
+    margin-bottom: 20px;
+    margin-top: 20px;
+    height: 200px;
+    overflow: hidden;
+    .gist-meta{
+        display: none;
+    }
+    h2{
+        display: none;
+    }
+    .gist-file{
+        border: none !important;
+    }
+    
+}
+
+.loading__screen {
+    height: 250px;
+    background-color: #f0f0f0; /* Background color for skeleton effect */
+    animation: skeleton-loading 1s infinite alternate; /* Animation for skeleton effect */
+  }
+  
+  @keyframes skeleton-loading {
+    from {
+      opacity: 0.8;
+    }
+    to {
+      opacity: 0.5;
+    }
+  }
+  

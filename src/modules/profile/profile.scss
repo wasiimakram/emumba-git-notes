@@ -1,0 +1,47 @@
+// *** Profile ***//
+@import './../../scss/variables';
+
+.profile-main-wrap{
+    .profile-row{
+        padding: 70px 0px 0px 0px;
+    }
+    .left-wrap{
+        padding-left: 100px;
+        border-right: 1px solid $light_gray_color;
+    }
+    .right-wrap{
+        padding-right: 120px;
+    }
+    .image-wrap{
+        .ant-image-img{
+            width: 250px;
+            border-radius: 50%;
+        }
+        .title{
+            margin: 20px 0px 30px 0px;
+        }
+    }
+    .header{
+        display: flex;
+        align-items: center;
+        .profile-wrap{
+            border:none;
+        }
+    }
+    .gist-wrap{
+        // width: 75%;
+        .ant-card{
+            border:none;
+        }
+        .git-container{
+            margin-top: 20px;
+            height: 200px;
+            overflow: hidden;
+            background-color: $white_color;
+            border-radius: 8px;
+            box-shadow: $white_box_shadow
+            
+        }
+        
+    }
+}

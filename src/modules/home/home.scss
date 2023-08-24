@@ -1,0 +1,87 @@
+// *** Home ***//
+@import './../../scss/variables';
+
+.home-main-wrap{
+    padding: 60px;
+    .page-icons{
+        text-align: right;
+        padding: 0px;
+        font-size: 25px;
+        margin-bottom: 10px;
+        color: $primary_color_1;
+    }
+    .ant-table-wrapper{
+        .table-action{
+            color:$primary_color_1;
+            margin-right: 10px;
+        }
+    }
+    .grid-card-content{
+        display: flex;
+        .single-card{
+            box-shadow: $white_box_shadow;
+            // width: 30%;
+            margin-right: 20px;
+            margin-bottom: 30px;
+            height: 360px;
+            .ant-card-body{
+                padding: 5px;
+            }
+        }
+        .footer-wrap{
+            border-top: 1px solid $primary_color_4;
+            display: flex;
+            img{
+                width: 70px;
+                height: 70px;
+                border-radius: 44px;
+                margin-top: 20px;
+            }
+            .ant-layout-content{
+                text-align: start;
+                margin-left: 15px;
+                .title{
+                    margin-bottom: 0px;
+                    color: $primary_color_3;
+                }
+                span{
+                    color:$primary_color_4
+                }
+            }
+        }
+    }
+    .pagination-wrap{
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 10px;
+        margin-top: 15px;
+        .ant-pagination-item {
+            display: none; 
+        }
+        .ant-pagination-prev,.ant-pagination-next {
+            display: inline-block;
+            button{color:$white_color}
+        }
+        .ant-pagination{
+            background: $primary_color_1;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+        button{
+            background: $primary_color_1;
+            &:hover{
+                background-color: $primary_color_1 !important;
+            }
+        }
+        .ant-pagination-jump-next{
+            .anticon{
+                color:$white_color;
+            }
+        }
+        .ant-pagination-jump-prev{
+            .anticon{
+                color:$white_color;
+            }
+        }
+    }
+}
