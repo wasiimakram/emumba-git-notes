@@ -5,6 +5,8 @@ module.exports = {
       'plugin:prettier/recommended',
     ],
     rules: {
+      "no-unused-vars": "off", 
+      "import/no-unused-modules": "error",
       'prettier/prettier': [
         'error',
         {

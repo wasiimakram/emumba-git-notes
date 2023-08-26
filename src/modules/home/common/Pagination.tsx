@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Layout, Typography, Pagination } from "antd";
+import { Button, Layout, Typography, Pagination, Row, Col } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import {
   handleManualNext,
@@ -28,19 +28,25 @@ const PaginationWrap: React.FC<Props> = () => {
   };
   return (
     <Content className="pagination-wrap">
-      <Button type="primary" onClick={onNext}>
-        Next Page <ArrowRightOutlined />
-      </Button>
-      <Text>
-        Page <span>{page}</span> of {total}
-      </Text>
-      <Pagination
-        size="small"
-        total={total}
-        showLessItems
-        showSizeChanger={false}
-        onChange={handleChange}
-      />
+      <Row>
+        <Col span={8} offset={8} className="pagination-btn">
+          <Button type="primary" onClick={onNext}>
+            Next Page <ArrowRightOutlined />
+          </Button>
+        </Col>
+        <Col span={8} className="pagination-inner">
+          <Text>
+            Page <span>{page}</span> of {total}
+          </Text>
+          <Pagination
+            size="small"
+            total={total}
+            showLessItems
+            showSizeChanger={false}
+            onChange={handleChange}
+          />
+        </Col>
+      </Row>
     </Content>
   );
 };

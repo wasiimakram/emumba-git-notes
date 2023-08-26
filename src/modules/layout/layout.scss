@@ -2,60 +2,94 @@
 
 .app-header {
     background-color: $primary_color_1;
-    .logo{
-        display: flex;
-        justify-content: center;
+    padding-inline: 0px;
+
+    @media (max-width: $breakpoint-sm) {
+        height: 135px;
+    }
+    .ant-row{  
         align-items: center;
+        @media (max-width: $breakpoint-sm) {
+            display: flex; 
+            flex-direction: column;
+        }
+        .ant-col-8{
+            @media (max-width: $breakpoint-sm) {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+    }
+    .logo{
+        cursor: pointer;
+        display: flex; 
+        align-items: center;        
         img{
-            width: 35px;
-            padding: 20px;
+            width: 35px; 
+            padding-right: 25px;
         }
         .logo-text{
             color: $white_color;
-            margin-top: 15px;
+            margin-top: 10px;
             margin-left: -8px;
             letter-spacing: 5px;
         }
     }
-    .nav-search{
-        margin-top: 10px;
-        .ant-input-wrapper{
-            border: 1px solid white;
-            border-radius: 5px; 
-            .ant-button{
-                &:hover{
-                    color:transparent;
+    .headerFormm{
+        display: flex;
+        align-items: center;
+        @media (max-width: $breakpoint-sm) {
+            
+                display: flex;
+                align-items: center;
+                flex: 0 0 100%;
+                max-width: 100%;
+                margin-inline-start: 0;
+            }
+
+
+
+        .nav-search{ 
+            .ant-input-wrapper{
+                border: 1px solid white;
+                border-radius: 5px; 
+                .ant-button{
+                    &:hover{
+                        color:transparent;
+                    }
                 }
             }
+            input{
+                padding: 10px 11px;
+                background: transparent;
+                border: none;
+            }
+            .ant-input-search-button{
+                background: transparent;
+                border: none;
+                box-shadow: none;
+            }
         }
-        input{
-            padding: 10px 11px;
-            background: transparent;
-            border: none;
-        }
-        .ant-input-search-button{
-            background: transparent;
-            border: none;
-            box-shadow: none;
-        }
-    }
-    .login-button{
-        background: $white_color;
-        color:$primary_color_1;
-        font-weight: bold;
-        height: auto;
-        span{
-            padding:5px 10px;
-        }
-        &:hover{
+        .login-button{
             background: $white_color;
+            color:$primary_color_1;
+            font-weight: bold;
+            height: auto;
+            margin-left: 25px;
+            span{
+                padding:5px 10px;
+            }
+            &:hover{
+                background: $white_color;
+            }
         }
     }
     .profile-img{
         cursor: pointer;
-        width: 50px;
-        height: auto;
-        margin-top: 7px;
-        border-radius: 50%;
+        width: 45px;
+        height: auto; 
+        margin-left: 15px;
+        border-radius: 50%;            
     }
 }
+ 

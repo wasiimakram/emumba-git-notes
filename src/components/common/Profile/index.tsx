@@ -4,17 +4,30 @@ import "./index.scss";
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
-const ShortProfile: React.FC = () => {
+interface ProfileProps {
+  avatar?: string;
+  name?: string;
+  file?: string;
+  time?: string;
+  keyword?: string;
+}
+const ShortProfile: React.FC<ProfileProps> = ({
+  avatar,
+  name,
+  file,
+  time,
+  keyword,
+}) => {
   return (
     <Content className="profile-wrap">
-      <img src="assets/images/user1.jpg" />
+      <img src={avatar} />
       <Content>
         <Title level={5} className="title">
-          Ana John / Package.json
+          {name} / {file}
         </Title>
-        <Text>Created 7 hours ago</Text>
+        <Text>Created {time}</Text>
         <br />
-        <Text>Broadcast Server</Text>
+        <Text>{keyword}</Text>
       </Content>
     </Content>
   );

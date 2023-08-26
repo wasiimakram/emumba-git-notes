@@ -6,3 +6,10 @@ export interface ApiResponse {
     errors: string | null;
     successMessage: string;
 }
+export interface AddFormValues {
+    description: string;
+    files: Array<{
+        fileName: string;
+        content: string;
+    }>;
+}

@@ -7,23 +7,27 @@ import "./scss/style.scss";
 import { Header } from "antd/es/layout/layout";
 import Navbar from "./modules/layout/Header";
 import Home from "./modules/home/Home";
-import { Add, Details } from "./modules/gist";
+import { Add, Details, Edit } from "./modules/gist";
 import Profile from "./modules/profile/Profile";
 import CallBack from "./components/common/CallBack";
 
 function App() {
   return (
     <div className="App">
-      <Navbar />
       {/* <Details /> */}
       {/* <Edit /> */}
       {/* <Add /> */}
       {/* <Home /> */}
       {/* <Profile /> */}
       <Router>
+        <Navbar />
         <Switch>
           <Route exact path="/callback" component={CallBack} />
           <Route exact path="/" component={Home} />
+          <Route exact path="/create" component={Add} />
+          <Route exact path="/my-gists" component={Profile} />
+          <Route exact path="/gist/:id" component={Details} />
+          <Route exact path="/edit/:id" component={Edit} />
           {/* <Route exact path="/" component={Home}></Route> */}
           {/* {routes.map((route) => {
             return (

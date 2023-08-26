@@ -11,12 +11,14 @@ import {
   selectPageLayout,
   selectPublicGist,
 } from "../../app-redux/modules/gist/gistSlice";
-
+const { Content } = Layout;
 const Home: React.FC = () => {
   const layout = useAppSelector(selectPageLayout);
   return (
     <Layout className="home-main-wrap">
-      {layout === "listing" ? <ListView /> : <GridView />}
+      <Content className="ant-container">
+        {layout === "listing" ? <ListView /> : <GridView />}
+      </Content>
     </Layout>
   );
 };

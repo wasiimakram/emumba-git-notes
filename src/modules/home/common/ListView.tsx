@@ -57,7 +57,7 @@ const ListView: React.FC = () => {
       <ToggleButtons />
       <Table
         rowSelection={{ type: "checkbox" }}
-        className="page-table"
+        className="page-table table-responsive"
         columns={Columns()}
         dataSource={!isLoading ? updateRecord : emptyData}
         loading={isLoading}

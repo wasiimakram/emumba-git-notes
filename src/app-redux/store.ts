@@ -1,10 +1,12 @@
 import { configureStore, Action, ThunkAction } from "@reduxjs/toolkit";
 import thunkMiddleware from "redux-thunk";
 import gistReducer from './modules/gist/gistSlice'
+import profileReducer from './modules/profile/profileSlice'
 
 export const store = configureStore({
   reducer: {
     gist: gistReducer,
+    profile: profileReducer,
   },
   middleware: [thunkMiddleware],
 });

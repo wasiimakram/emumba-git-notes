@@ -1,4 +1,28 @@
 // will add Global CSS
+@import './variables';
+
+
 .ant-layout{
     background: none;
+}
+
+ 
+
+.ant-container{
+    max-width: 1350px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 15px;
+    @media (max-width: ($breakpoint-lg)){    /* starting from 1199 */
+        max-width: 960px;
+    }
+    @media (max-width: $breakpoint-md){   /* starting from 990 */
+        max-width: 720px;
+    }
+    @media (max-width: $breakpoint-sm){   /* starting from 767 */
+        max-width: 540px;
+    }
+    @media (max-width: $breakpoint-xs){    /* starting from 575 */
+        max-width: 100%;
+    }
 }

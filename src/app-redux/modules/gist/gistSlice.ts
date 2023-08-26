@@ -1,24 +1,36 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
-import { getGistPublic } from "./actions/gistActions";
+import { createGistContent, forkGist, getGistDetails, getGistPublic, starGist } from "./actions/gistActions";
 import { ApiResponse } from "../../../common/typings/app";
+import { useAppDispatch } from "../../hooks";
+import { message } from "antd";
 
 type GistState = {
   publicGist: any;
+  gistDetails: any;
   loader: boolean;
   page: number;
   perPage: number;
   total: number;
   pageLayout: 'listing' | 'grid';
+  isStarred: boolean;
+  isForked: boolean;
+  starCount: number;
+  forkCount: number;
 
 };
 const initialState: GistState = {
   publicGist: [],
+  gistDetails: [],
   loader: false,
   page: 1,
   perPage: 12,
   total: 3000,
-  pageLayout: 'grid'
+  pageLayout: 'grid',
+  isStarred: false,
+  isForked: false,
+  starCount: 0,
+  forkCount: 0,
 };
 export const gistSlice = createSlice({
   name: "gist",
@@ -35,9 +47,17 @@ export const gistSlice = createSlice({
       state.page = initialState.page;
       state.perPage = initialState.perPage;
     },
-    changePageLayout(state, action) {
+    changePageLayout: (state, action) => {
       state.pageLayout = action.payload;
     },
+    handleNavSearch: (state, action) => {
+      const query = action.payload;
+      if (query !== "") {
+        state.publicGist = state.publicGist.filter((item: any) =>
+          item.id.toLowerCase().includes(query.toLowerCase())
+        );
+      }
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(getGistPublic.pending, (state) => {
@@ -50,6 +70,57 @@ export const gistSlice = createSlice({
       state.loader = false;
       state.publicGist = action.payload
     });
+
+    // Get Gist Details
+    builder.addCase(getGistDetails.pending, (state) => {
+      state.loader = true;
+    });
+    builder.addCase(getGistDetails.rejected, (state) => {
+      state.loader = false;
+    });
+    builder.addCase(getGistDetails.fulfilled, (state, action: PayloadAction<ApiResponse>) => {
+      state.loader = false;
+      state.gistDetails = action.payload
+    });
+
+    // Give a Star to Gist
+    builder.addCase(starGist.pending, (state) => {
+      state.loader = true;
+    });
+    builder.addCase(starGist.rejected, (state) => {
+      state.loader = false;
+    });
+    builder.addCase(starGist.fulfilled, (state, action: PayloadAction<ApiResponse>) => {
+      state.loader = false;
+      state.isStarred = !state.isStarred;
+      state.starCount = state.isStarred ? 1 : 0;
+      message.success(`Gist ${state.isStarred ? 'Stared' : 'Unstared'} successfully`)
+    });
+    // Fork Gist
+    builder.addCase(forkGist.pending, (state) => {
+      state.loader = true;
+    });
+    builder.addCase(forkGist.rejected, (state) => {
+      state.loader = false;
+    });
+    builder.addCase(forkGist.fulfilled, (state, action: PayloadAction<ApiResponse>) => {
+      state.loader = false;
+      state.isForked = !state.isForked;
+      state.forkCount = state.isForked ? 1 : 0;
+      message.success(`Gist ${state.isForked ? 'Forked' : 'Unsubscribed'} successfully`)
+    });
+    // Add Gist
+    builder.addCase(createGistContent.pending, (state) => {
+      state.loader = true;
+    });
+    builder.addCase(createGistContent.rejected, (state) => {
+      state.loader = false;
+    });
+    builder.addCase(createGistContent.fulfilled, (state, action: PayloadAction<ApiResponse>) => {
+      state.loader = false;
+      message.success(`Gist created successfully`)
+    });
+
   }
 });
 
@@ -58,6 +129,7 @@ export const {
   handleManualNext,
   resetListingValues,
   changePageLayout,
+  handleNavSearch,
 } = gistSlice.actions;
 export const selectPublicGist = (state: RootState) => state.gist.publicGist;
 export const selectIsLoading = (state: RootState) => state.gist.loader;
@@ -65,5 +137,8 @@ export const selectPage = (state: RootState) => state.gist.page;
 export const selectPerPage = (state: RootState) => state.gist.perPage;
 export const selectTotal = (state: RootState) => state.gist.total;
 export const selectPageLayout = (state: RootState) => state.gist.pageLayout;
+export const selectGistDetails = (state: RootState) => state.gist.gistDetails;
+export const selectIsStarred = (state: RootState) => state.gist.isStarred;
+export const selectIsForked = (state: RootState) => state.gist.isForked;
 
 export default gistSlice.reducer;

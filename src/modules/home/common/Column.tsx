@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Image, Space, Layout } from "antd";
-import { AdminSettings } from "../../../common/typings/admin";
 import { ForkOutlined, StarOutlined } from "@ant-design/icons";
 const { Content } = Layout;
 type Data = any;

@@ -12,18 +12,22 @@ export const items: MenuProps["items"] = [
   },
   {
     key: "2",
-    label: <a href="https://www.aliyun.com">Your Gists</a>,
+    label: "Craete Gist",
   },
   {
     key: "3",
-    label: <a href="https://www.luohanacademy.com">Stared Gists</a>,
+    label: "Your Gists",
   },
   {
     key: "4",
-    label: <a href="https://www.luohanacademy.com">Github Profile</a>,
+    label: <a href="https://www.luohanacademy.com">Stared Gists</a>,
   },
   {
     key: "5",
+    label: <a href="https://www.luohanacademy.com">Github Profile</a>,
+  },
+  {
+    key: "6",
     label: <a href="https://www.luohanacademy.com">Sing Out</a>,
   },
 ];

@@ -3,9 +3,10 @@
 import axios from 'axios';
 
 const ax = axios.create({
-    baseURL: 'https://api.github.com',
+    baseURL: process.env.REACT_APP_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
+        'X-GitHub-Api-Version': '2022-11-28',
     },
 });
 
