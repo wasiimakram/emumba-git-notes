@@ -1,25 +1,12 @@
 import React, { useState } from "react";
-import {
-  Layout,
-  Typography,
-  Input,
-  Row,
-  Col,
-  Button,
-  Menu,
-  Dropdown,
-} from "antd";
-import type { MenuProps } from "antd";
-import "./layout.scss";
-import isUserLoggedIn from "../../common/utils/auth";
-import { items } from "../../common/utils/common";
+import { Layout, Typography, Input, Row, Col } from "antd";
 import Buttons from "./common/Button";
 import SearchInput from "./common/Search";
 import { useHistory } from "react-router-dom";
+import "./layout.scss";
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
-const { Search } = Input;
 
 const Navbar: React.FC = () => {
   const history = useHistory();
@@ -38,8 +25,8 @@ const Navbar: React.FC = () => {
             <Content
               className="logo"
               onClick={() => {
-                // history.push("/");
-                window.location.href = "/";
+                history.push("/");
+                // window.location.href = "/";
               }}
             >
               <img className="img-fluid" src="assets/images/logo.jpg" alt="" />
@@ -48,12 +35,9 @@ const Navbar: React.FC = () => {
               </Title>
             </Content>
           </Col>
-          <Col className="headerFormm" span={10} offset={6}>
+          <Col className="headerFormm" span={9} offset={7}>
             <SearchInput /> <Buttons handleLogin={handleLogin} />
           </Col>
-          {/* <Col span={2}>
-            <Buttons handleLogin={handleLogin} />
-          </Col> */}
         </Row>
       </Content>
     </Header>

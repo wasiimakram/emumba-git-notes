@@ -9,21 +9,21 @@ import {
   selectTotal,
 } from "../../../app-redux/modules/gist/gistSlice";
 import { useAppDispatch, useAppSelector } from "../../../app-redux/hooks";
+
 const { Content } = Layout;
 const { Text } = Typography;
 
 type Props = {};
-
 const PaginationWrap: React.FC<Props> = () => {
   const dispatch = useAppDispatch();
   const page = useAppSelector(selectPage);
   const perPage = useAppSelector(selectPerPage);
   const total = useAppSelector(selectTotal);
 
-  const handleChange = (newPage: any) => {
+  const handleChange = (newPage: number) => {
     dispatch(handlePageChange(newPage));
   };
-  const onNext = (newPage: any) => {
+  const onNext = () => {
     dispatch(handleManualNext());
   };
   return (

@@ -10,8 +10,7 @@ import { useAppDispatch, useAppSelector } from "../../../app-redux/hooks";
 const { Content } = Layout;
 
 type Props = {};
-
-const ToggleButtons = (props: Props) => {
+const ToggleButtons: React.FC = (props: Props) => {
   const layout = useAppSelector(selectPageLayout);
   const dispatch = useAppDispatch();
   const handleChange = (type: string) => {

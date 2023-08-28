@@ -1,219 +1,214 @@
 // *** Home ***//
-@import './../../scss/variables';
+@import "./../../scss/variables";
+@import "./../../scss/_mixins";
 
-.home-main-wrap{
-    padding-top: 40px;
-    .ant-container{
-        @media (max-width: $breakpoint-sm){
-            padding: 0 25px;
-            max-width: 100%;
+.home-main-wrap {
+  padding-top: 40px;
+  .ant-container {
+    .grid-card-content {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -15px;
+      .home-col-box {
+        padding: 0 15px;
+        .single-card {
+          box-shadow: $white_box_shadow;
+          cursor: pointer;
+          margin-bottom: 30px;
+          min-height: 325px;
+          .ant-card-body {
+            padding: 10px;
+          }
         }
-        
-        .grid-card-content{
-            display: flex;
-            flex-wrap: wrap;
-            margin: 0 -15px;
-            .home-col-box{
-                padding: 0 15px;
-                .single-card{
-                    box-shadow: $white_box_shadow; 
-                    cursor:pointer;                 
-                    margin-bottom: 30px;
-                    min-height: 370px; 
-                    .ant-card-body{
-                        padding: 10px;
-                    }
-                }
-            }
-             
-            .footer-wrap{
-                border-top: 1px solid #cbbcbc;
-                display: flex;
-                align-items: center;
-                padding-top: 20px;
-                img{
-                    width: 70px;
-                    height: 70px;
-                    border-radius: 50px; 
-                    margin-top:0px;
-                    @media (max-width: $breakpoint-sm){
-                        width: 50px;
-                        height: 50px;
-                    }
-                }
-                .ant-layout-content{
-                    text-align: start;
-                    margin-left: 15px;
-                    .title{
-                        margin: 0px;
-                        color: $primary_color_3;
-                        line-height: 28px;
-                        font-size: 18px;
-                        word-wrap: normal;
-                        height: 30px;
-                        overflow: hidden;                         
-                        @media (max-width: $breakpoint-sm){
-                            font-size: 15px;
-                             
-                        }
-                    }
-                    span{
-                        color:$primary_color_4;
-                        font-size: 14px;
-                        line-height: 15px;
-                        @media (max-width: $breakpoint-sm){
-                            font-size: 13px;
-                        }
-                        &.user-tag{
-                            display: block;
-                            font-size: 12px;
-                        }
-                    }
-                }
-            }
-        }
+      }
 
+      .footer-wrap {
+        border-top: 1px solid #cbbcbc;
+        display: flex;
+        align-items: center;
+        padding-top: 20px;
+        img {
+          width: 70px;
+          height: 70px;
+          border-radius: 50px;
+          margin-top: 0px;
+          @include respond-to($breakpoint-sm) {
+            width: 50px;
+            height: 50px;
+          }
+        }
+        .ant-layout-content {
+          text-align: start;
+          margin-left: 15px;
+          .title {
+            margin: 0px;
+            color: $primary_color_3;
+            line-height: 28px;
+            font-size: 18px;
+            word-wrap: normal;
+            height: 30px;
+            overflow: hidden;
+            @include respond-to($breakpoint-sm) {
+              font-size: 15px;
+            }
+          }
+          span {
+            color: $primary_color_4;
+            font-size: 14px;
+            line-height: 15px;
+            @include respond-to($breakpoint-sm) {
+              font-size: 13px;
+            }
+            &.user-tag {
+              display: block;
+              font-size: 12px;
+            }
+          }
+        }
+      }
+    }
+    @include respond-to($breakpoint-sm) {
+        padding: 0 25px;
+        max-width: 100%;
+    }  
+  }
+
+  .list-view {
+    .table-responsive {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .ant-pagination {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      li {
+        @include respond-to($breakpoint-sm) {
+          min-width: 25px;
+          height: 25px;
+          line-height: 25px;
+          margin-inline-end: 0px !important;
+          font-size: 11px;
+        }
+        a {
+          @include respond-to($breakpoint-sm) {
+            padding: 0;
+            font-size: 11px;
+            margin: 0 !important;
+          }
+        }
+      }
+    }
+  }
+  .page-icons {
+    text-align: right;
+    padding: 0px;
+    font-size: 25px;
+    margin-bottom: 10px;
+    color: $gray_color;
+    .selected {
+      color: $primary_color_1;
+    }
+  }
+  .ant-table-wrapper {
+    .ant-table-content {
+      .name-cell {
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+        }
+        span {
+          margin-left: 10px;
+          @include respond-to($breakpoint-sm) {
+            margin-left: 0px;
+          }
+        }
+        @include respond-to($breakpoint-sm) {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+      .ant-table-cell {
+        font-size: 14px;
+        @include respond-to($breakpoint-sm) {
+          font-size: 12px;
+          text-align: center;
+        }
+      }
+    }
+    .table-action {
+      color: $primary_color_7;
+      margin-right: 10px;
+      cursor: pointer;
+      .anticon-star {
+        // color:$primary_color_1;
+      }
+    }
+  }
+  .pagination-wrap {
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    .ant-row {
+      @include respond-to($breakpoint-sm) {
+        display: flex;
+        flex-flow: row wrap;
+        min-width: 0;
+        flex-direction: column;
+        align-items: center;
+      }
+      .pagination-btn {
+        @include respond-to($breakpoint-sm) {
+          margin-inline-start: 0;
+          margin-bottom: 10px;
+          width: 100%;
+        }
+      }
     }
 
-
-
-    .list-view{
-        .table-responsive{
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        .ant-pagination{
-            margin-top: 20px;
-            margin-bottom: 20px;
-            li{
-                @media (max-width: $breakpoint-xs){
-                    min-width: 25px;
-                    height: 25px;
-                    line-height: 25px;
-                    margin-inline-end: 0px !important;
-                    font-size: 11px;
-                }
-                a { 
-                    @media (max-width: $breakpoint-xs){
-                        padding: 0;
-                        font-size: 11px;
-                        margin: 0 !important;
-                    }
-                }
-            }
-        }
+    .pagination-inner {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      @include respond-to($breakpoint-sm) {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
     }
-    .page-icons{
-        text-align: right;
-        padding: 0px;
-        font-size: 25px;
-        margin-bottom: 10px;
-        color: $gray_color;
-        .selected{
-            color: $primary_color_1;
-        }
+    .ant-pagination-item {
+      display: none;
     }
-    .ant-table-wrapper{
-        .ant-table-content{
-            .name-cell{
-                img{
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                }
-                span{
-                    margin-left: 10px;
-                    @media (max-width: $breakpoint-sm){
-                        margin-left: 0px;
-                    }
-                }
-                @media (max-width: $breakpoint-sm){
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                }
-            }
-            .ant-table-cell{
-                font-size: 14px;
-                @media (max-width: $breakpoint-sm){
-                    font-size: 12px;
-                    text-align: center;
-                }
-            }
-             
-        }
-        .table-action{
-            color:$primary_color_1;
-            margin-right: 10px;
-        }
+    .ant-pagination-prev,
+    .ant-pagination-next {
+      display: inline-block;
+      button {
+        color: $white_color;
+      }
     }
-     
-    .pagination-wrap{ 
-        margin-top: 15px;
-        margin-bottom: 15px;
-
-        .ant-row {
-            @media (max-width: $breakpoint-sm){
-                display: flex;
-                flex-flow: row wrap;
-                min-width: 0;
-                flex-direction: column;
-                align-items: center;
-            }
-            .pagination-btn{
-                @media (max-width: $breakpoint-sm){
-                    margin-inline-start: 0;
-                    margin-bottom: 10px;
-                    width: 100%;
-                }
-            }
-        }
-
-
-
-
-        .pagination-inner{
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            @media (max-width: $breakpoint-sm){
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
-            }
-        }
-        .ant-pagination-item {
-            display: none; 
-        }
-        .ant-pagination-prev,.ant-pagination-next {
-            display: inline-block;
-            button{color:$white_color}
-        }
-        .ant-pagination{
-            background: $primary_color_1;
-            border-radius: 5px;
-            margin-left: 10px;
-        }
-        button{
-            background: $primary_color_1;
-            &:hover{
-                background-color: $primary_color_1 !important;
-            }
-        }
-        .ant-pagination-jump-next{
-            .anticon{
-                color:$white_color;
-            }
-        }
-        .ant-pagination-jump-prev{
-            .anticon{
-                color:$white_color;
-            }
-        }
+    .ant-pagination {
+      background: $primary_color_1;
+      border-radius: 5px;
+      margin-left: 10px;
     }
+    button {
+      background: $primary_color_1;
+      &:hover {
+        background-color: $primary_color_1 !important;
+      }
+    }
+    .ant-pagination-jump-next {
+      .anticon {
+        color: $white_color;
+      }
+    }
+    .ant-pagination-jump-prev {
+      .anticon {
+        color: $white_color;
+      }
+    }
+  }
 }
-
-
-

@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Typography, Table, Skeleton, Pagination } from "antd";
-import type { ColumnsType } from "antd/es/table";
-import "./../home.scss";
-import {
-  AppstoreOutlined,
-  BarsOutlined,
-  ForkOutlined,
-  StarOutlined,
-} from "@ant-design/icons";
+import { Table, Pagination } from "antd";
 import { Content } from "antd/es/layout/layout";
 import {
   handlePageChange,
@@ -20,9 +12,9 @@ import {
 } from "../../../app-redux/modules/gist/gistSlice";
 import { useAppDispatch, useAppSelector } from "../../../app-redux/hooks";
 import { getGistPublic } from "../../../app-redux/modules/gist/actions/gistActions";
-import { useDispatch } from "react-redux";
 import Columns from "./Column";
 import ToggleButtons from "./ToggleButtons";
+import "./../home.scss";
 
 const ListView: React.FC = () => {
   const page = useAppSelector(selectPage);
@@ -41,7 +33,7 @@ const ListView: React.FC = () => {
     };
   }, []);
 
-  const updateRecord = pageRecord.map((item: any) => ({
+  const updateRecord = pageRecord.map((item: Record<string, any>) => ({
     key: item.id.toString(),
     name: item.owner.login,
     date: item.created_at,
@@ -67,7 +59,7 @@ const ListView: React.FC = () => {
         current={page}
         pageSize={perPage}
         total={total}
-        onChange={(page) => {
+        onChange={(page: number) => {
           dispatch(handlePageChange(page));
         }}
         showSizeChanger={false}

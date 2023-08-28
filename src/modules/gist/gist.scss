@@ -1,158 +1,159 @@
-@import './../../scss/variables';
+@import "./../../scss/_variables";
+@import "./../../scss/_mixins";
 
 .gist-main-wrap {
-    padding-top: 30px;
-    .ant-container{
-        @media (max-width: $breakpoint-md){
-            max-width: 100%;
-            padding: 0 50px;
-        }
-        @media (max-width: $breakpoint-sm){
-            max-width: 100%;
-            padding: 0 30px;
-        }
-        @media (max-width: $breakpoint-xs){
-            padding: 0 15px;
-        }
-        .intro-wrap{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+  padding-top: 30px;
+  .ant-container {
+    .intro-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-            @media (max-width: $breakpoint-sm){
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                flex-direction: column;
-            }
-             .profile-wrap{
-                border-top: none !important;
-                @media (max-width: $breakpoint-sm){
-                    margin-bottom: 10px;
-                }
-                @media (max-width: $breakpoint-md){
-                    max-width: 50%;
-                }
-            }
-            .icons{
-                @media (max-width: $breakpoint-md){
-                    max-width: 50%;
-                }
-                @media (max-width: $breakpoint-sm){
-                    max-width: 100%;
-                }
-            }
-        }
-
-        .code-view{
-            margin-top: 15px;
-            box-shadow: $white_box_shadow;
-            border-radius: 10px;
-            @media (max-width: $breakpoint-sm){
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-            
-            .gist__bash{
-                height: auto;
-                h2{
-                    color:$primary_color_5;                
-                    text-align: initial;
-                    font-size: 15px;
-                    margin-bottom: 4px;
-                    font-weight: 400;
-                }
-                .gist-meta{display: none;}
-                .gist .gist-data {
-                    border-bottom: none;
-                }
-            }
-
-        }
-        .add-wrap{
-            .ant-form-item {
-                margin-bottom: auto;
-            }
-            input{
-                margin-bottom: 15px;
-            }
-            .iteratables{
-                margin-bottom: 20px;
-            }
-            .remove-button{
-                display: block;
-                text-align: initial;
-                margin-top: 5px;
-                color: $primary_color_6;
-            }
-            .upload{
-                
-                display: flex;
-                .ant-upload{
-                    margin-top: 10px;
-                    button{
-                        background: $primary_color_1;
-                        color:$white_color;
-                    }
-                }
-            }
-            
-        }
-    }
-     
-}
-.add-button{
-    width: auto !important;
-    margin-top: 10px;
-    display: flex;
-    background: $primary_color_1;
-    span{
-        color:$white_color
-    }
-}
-.edit-button{
-    margin-top: 0px;
-    margin-bottom: 40px;
-    margin-left: 180px;
-}
-
-.edit-wrap{
-    display: flex;
-    align-items: center;
-    margin-bottom: 35px;
-   @media (max-width: $breakpoint-sm){
+      @include respond-to($breakpoint-sm) {
         display: flex;
         align-items: center;
         justify-content: space-between;
         flex-direction: column;
-    }
-    .profile-wrap{
+      }
+      .profile-wrap {
         border-top: none !important;
-        @media (max-width: $breakpoint-sm){
-            margin-bottom: 10px;
+        @include respond-to($breakpoint-sm) {
+          margin-bottom: 10px;
         }
-        @media (max-width: $breakpoint-md){
-            max-width: 50%;
+        @include respond-to($breakpoint-md) {
+          max-width: 50%;
         }
+      }
+      .icons {
+        @include respond-to($breakpoint-md) {
+          max-width: 50%;
+        }
+        @include respond-to($breakpoint-sm) {
+          max-width: 100%;
+        }
+      }
     }
-    .icons{
-        @media (max-width: $breakpoint-md){
-            max-width: 50%;
+    .code-view {
+      margin-top: 15px;
+      margin-bottom: 20px;
+      box-shadow: $white_box_shadow;
+      border-radius: 10px;
+      @include respond-to($breakpoint-sm) {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .gist__bash {
+        height: auto;
+        h2 {
+          color: $primary_color_5;
+          text-align: initial;
+          font-size: 15px;
+          margin-bottom: 4px;
+          font-weight: 400;
         }
-        @media (max-width: $breakpoint-sm){
-            max-width: 100%;
+        .gist-meta {
+          display: none;
         }
+        .gist .gist-data {
+          border-bottom: none;
+        }
+      }
     }
+    .add-wrap {
+      .ant-form-item {
+        margin-bottom: auto;
+      }
+      input {
+        margin-bottom: 15px;
+      }
+      .iteratables {
+        margin-bottom: 20px;
+      }
+      .remove-button {
+        display: block;
+        text-align: initial;
+        margin-top: 5px;
+        color: $primary_color_6;
+      }
+      .upload {
+        display: flex;
+        .ant-upload {
+          margin-top: 10px;
+          button {
+            background: $primary_color_1;
+            color: $white_color;
+          }
+        }
+      }
+    }
+    @include respond-to($breakpoint-md) {
+        max-width: 100%;
+        padding: 0 50px;
+      }
+    @include respond-to($breakpoint-sm) {
+        max-width: 100%;
+        padding: 0 30px;
+    }
+    @include respond-to($breakpoint-xs) {
+        padding: 0 15px;
+    }
+  }
 }
-            // for edit code 
-            .ace_editor{
-                width: 100% !important;
-                height: 500px !important;
-                font-size: 12px;
-                border: 1px solid $primary_color_4;
-                border-radius: 5px;
-                .ace_print-margin{
-                    background: none;
-                    left:none;
-                }
-            }
+.add-button {
+  width: auto !important;
+  margin-top: 10px;
+  display: flex;
+  background: $primary_color_1;
+  span {
+    color: $white_color;
+  }
+}
+.edit-button {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.edit-wrap {
+  display: flex;
+  align-items: center;
+  margin-bottom: 35px;
+  @include respond-to($breakpoint-sm) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+  .profile-wrap {
+    border-top: none !important;
+    @include respond-to($breakpoint-sm) {
+      margin-bottom: 10px;
+    }
+    @include respond-to($breakpoint-md) {
+      max-width: 50%;
+    }
+  }
+  .icons {
+    @include respond-to($breakpoint-md) {
+      max-width: 50%;
+    }
+    @include respond-to($breakpoint-sm) {
+      max-width: 100%;
+    }
+  }
+}
+// for edit code
+.ace_editor {
+  width: 100% !important;
+  height: 500px !important;
+  font-size: 12px;
+  border: 1px solid $primary_color_4;
+  border-radius: 5px;
+  .ace_print-margin {
+    background: none;
+    left: none;
+  }
+}
+.edit-page-sk {
+  margin-top: 50px;
+}

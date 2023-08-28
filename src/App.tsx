@@ -14,22 +14,17 @@ import CallBack from "./components/common/CallBack";
 function App() {
   return (
     <div className="App">
-      {/* <Details /> */}
-      {/* <Edit /> */}
-      {/* <Add /> */}
-      {/* <Home /> */}
-      {/* <Profile /> */}
       <Router>
         <Navbar />
         <Switch>
-          <Route exact path="/callback" component={CallBack} />
-          <Route exact path="/" component={Home} />
-          <Route exact path="/create" component={Add} />
+          {/* <Route exact path="/callback" component={CallBack} /> */}
+          {/* <Route exact path="/" component={Home} /> */}
+          {/* <Route exact path="/gist/:id" component={Details} />
+
+          {/* <Route exact path="/create" component={Add} />
           <Route exact path="/my-gists" component={Profile} />
-          <Route exact path="/gist/:id" component={Details} />
-          <Route exact path="/edit/:id" component={Edit} />
-          {/* <Route exact path="/" component={Home}></Route> */}
-          {/* {routes.map((route) => {
+          <Route exact path="/edit/:id" component={Edit} /> */}
+          {routes.map((route) => {
             return (
               <ProtectedRoute
                 key={route.path}
@@ -38,7 +33,7 @@ function App() {
                 type={route.type}
               />
             );
-          })} */}
+          })}
         </Switch>
       </Router>
     </div>

@@ -6,7 +6,6 @@
     "@ant-design/icons": "^5.2.5",
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.40",
@@ -34,7 +33,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint":"eslint . --fix"
+    "lint": "eslint . --fix"
   },
   "eslintConfig": {
     "extends": [
@@ -56,6 +55,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.22.10",
+    "@testing-library/react": "^14.0.0",
     "@types/react-embed-gist": "^1.0.1",
     "@types/react-router-dom": "^5.3.3",
     "babel-eslint": "^10.1.0",
@@ -66,6 +66,8 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "jest": "^27.5.1",
+    "msw": "^1.2.5",
     "sass": "^1.64.2"
   }
 }

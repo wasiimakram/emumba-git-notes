@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Layout, Typography } from "antd";
 import "./index.scss";
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
+
 interface ProfileProps {
   avatar?: string;
   name?: string;

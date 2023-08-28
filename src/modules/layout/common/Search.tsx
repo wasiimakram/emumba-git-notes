@@ -8,6 +8,7 @@ import {
 } from "../../../app-redux/modules/gist/gistSlice";
 import { useAppDispatch, useAppSelector } from "../../../app-redux/hooks";
 import { getGistPublic } from "../../../app-redux/modules/gist/actions/gistActions";
+import { useHistory, useLocation } from "react-router-dom";
 
 type Props = {};
 const SearchInput: React.FC<Props> = () => {
@@ -16,12 +17,20 @@ const SearchInput: React.FC<Props> = () => {
   const perPage = useAppSelector(selectPerPage);
   const dispatch = useDispatch();
   const customDispatch = useAppDispatch();
+  const history = useHistory();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const fetchData = (text: string) => {
+    if (text === "") {
+      queryParams.delete("query");
+      customDispatch(getGistPublic({ page, perPage }));
+    }
+  };
 
-  const fetchData = (text: string) =>
-    text === "" && customDispatch(getGistPublic({ page, perPage }));
-
-  const onSearch = (text: string) =>
+  const onSearch = (text: string) => {
+    history.push(`/?query=${text}`);
     text !== "" && dispatch(handleNavSearch(text));
+  };
 
   return (
     <Search

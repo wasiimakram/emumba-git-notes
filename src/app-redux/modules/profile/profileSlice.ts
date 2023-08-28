@@ -1,23 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 import { getMyGist } from "./actions/profileActions";
-import { ApiResponse } from "../../../common/typings/app";
+import { ApiResponse, ProfileGistState } from "../../../common/typings/app";
 import { useAppDispatch } from "../../hooks";
 import { message } from "antd";
 
-type GistState = {
-  myGists: any;
-  loader: boolean;
-  page: number;
-  perPage: number;
-  total: number;
-  isStarred: boolean;
-  isForked: boolean;
-  starCount: number;
-  forkCount: number;
-
-};
-const initialState: GistState = {
+const initialState: ProfileGistState = {
   myGists: [],
   loader: false,
   page: 1,
@@ -38,7 +26,7 @@ export const gistSlice = createSlice({
     },
     handleManualNext: (state) => {
       state.page += 1;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getMyGist.pending, (state) => {

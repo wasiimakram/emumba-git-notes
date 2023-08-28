@@ -1,14 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import ax from "../../../../common/api-client/apiClient";
 import { fork_success_code, star_success_code, success_code } from "../../../../common/utils/constants";
-import { ApiResponse } from "../../../../common/typings/app";
+import { ApiResponse, CreateGist, GetGistArgs, GistUpdate } from "../../../../common/typings/app";
+import { message } from "antd";
 
-interface GetGistPublicArgs {
-    page: number;
-    perPage: number;
-}
-
-export const getGistPublic = createAsyncThunk<ApiResponse, GetGistPublicArgs>(
+export const getGistPublic = createAsyncThunk<ApiResponse, GetGistArgs>(
     "gist/getGistPublic",
     async ({ page, perPage }) => {
         try {
@@ -41,9 +37,10 @@ export const starGist = createAsyncThunk<ApiResponse, { id: string }>(
     async ({ id }) => {
         try {
             const res = await ax.put(`/gists/${id}/star`);
-            if (res.status === star_success_code) return res.data
+            if (res.status === star_success_code) return { ...res.data, staredId: id }
             else throw new Error(res.data.error || res.statusText);
-        } catch (error) {
+        } catch (error: any) {
+            message.error(error?.message);
             throw error;
         }
     }
@@ -53,14 +50,14 @@ export const forkGist = createAsyncThunk<ApiResponse, { id: string }>(
     async ({ id }) => {
         try {
             const res = await ax.post(`/gists/${id}/forks`);
-            if (res.status === fork_success_code) return res.data
+            if (res.status === fork_success_code) return { ...res.data, staredId: id }
             else throw new Error(res.data.error || res.statusText);
         } catch (error) {
             throw error;
         }
     }
 );
-export const updateGistContent = createAsyncThunk<ApiResponse, { id: string, updatedContent: any }>(
+export const updateGistContent = createAsyncThunk<ApiResponse, GistUpdate>(
     "gist/updateGistContent",
     async ({ id, updatedContent }) => {
         const headers = {
@@ -68,14 +65,15 @@ export const updateGistContent = createAsyncThunk<ApiResponse, { id: string, upd
         };
         try {
             const res = await ax.put(`/gists/${id}`, updatedContent, { headers });
-            if (res.status === success_code && res.data.Status === 204) return res.data;
+            if (res.status === success_code) return res.data;
             else throw new Error(res.data.error || res.statusText);
-        } catch (error) {
+        } catch (error: any) {
+            message.error(error?.message);
             throw error;
         }
     }
 );
-export const createGistContent = createAsyncThunk<ApiResponse, { description: string, files: any }>(
+export const createGistContent = createAsyncThunk<ApiResponse, CreateGist>(
     "gist/createGistContent",
     async ({ description, files }) => {
         try {
@@ -83,6 +81,19 @@ export const createGistContent = createAsyncThunk<ApiResponse, { description: st
             if (res.status === fork_success_code && res.data) return res.data;
             else throw new Error(res.data.error || res.statusText);
         } catch (error) {
+            throw error;
+        }
+    }
+);
+export const deleteGist = createAsyncThunk<ApiResponse, { id: string }>(
+    "gist/deleteGist",
+    async ({ id }) => {
+        try {
+            const res = await ax.delete(`/gists/${id}`);
+            if (res.status === star_success_code) return res.data
+            else throw new Error(res.data.error || res.statusText);
+        } catch (error: any) {
+            message.error(error?.message);
             throw error;
         }
     }

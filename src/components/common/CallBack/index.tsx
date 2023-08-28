@@ -29,9 +29,10 @@ const CallBack: React.FC = () => {
 
       // const data = await response.json();
       // const accessToken = data.access_token;
-      const accessToken = "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"; // direct token
+      const accessToken = process.env.REACT_APP_ACCESS_TOKEN; // direct token
       if (accessToken) {
         localStorage.setItem("access_token", accessToken);
+        window.location.href = "/";
       }
     }
   };

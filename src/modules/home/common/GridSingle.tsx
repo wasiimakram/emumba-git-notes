@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import { Typography, Card, Avatar, Image, Button, Col } from "antd";
-
+import { Typography, Card, Col } from "antd";
 import { Content } from "antd/es/layout/layout";
-import ReactEmbedGist from "react-embed-gist";
 import GistCode from "../../../components/common/GistCode";
 import { formatTimeDifference } from "../../../common/utils/timeUtils";
 import { useHistory } from "react-router-dom";
-
 import "./../home.scss";
+
 const { Title, Text } = Typography;
 
 interface GridProps {
-  item: any;
+  item: Record<string, any>;
 }
 const GridCard: React.FC<GridProps> = ({ item }) => {
   const file = Object.keys(item.files)[0];

@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import { Layout, Typography, Table, Skeleton } from "antd";
-import "./../gist.scss";
-import { ForkOutlined, StarOutlined } from "@ant-design/icons";
+import { Layout, Skeleton } from "antd";
 import ShortProfile from "../../../components/common/Profile";
-import ReactEmbedGist from "react-embed-gist";
 import GistButtons from "../../../components/common/GistButtons";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app-redux/hooks";
 import { getGistDetails } from "../../../app-redux/modules/gist/actions/gistActions";
 import {
@@ -14,21 +11,19 @@ import {
 } from "../../../app-redux/modules/gist/gistSlice";
 import GistCode from "../../../components/common/GistCode";
 import { formatTimeDifference } from "../../../common/utils/timeUtils";
+import "./../gist.scss";
 
 const { Content } = Layout;
-const { Title, Text } = Typography;
 
 const Details: React.FC = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
-
   React.useEffect(() => {
     dispatch(getGistDetails({ id }));
   }, [dispatch, id]);
 
   const data = useAppSelector(selectGistDetails);
   const isLoading = useAppSelector(selectIsLoading);
-
   let contentToRender;
 
   if (!isLoading && data) {

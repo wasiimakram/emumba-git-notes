@@ -1,111 +1,133 @@
 // *** Profile ***//
-@import './../../scss/variables';
+@import "./../../scss/variables";
+@import "./../../scss/_mixins";
 
-.profile-main-wrap{
-    .ant-container{
-        @media (max-width: $breakpoint-lg){
-            max-width: 100%;
-            padding: 0 25px;
+.profile-main-wrap {
+  .ant-container {
+    @include respond-to($breakpoint-lg) {
+    //   max-width: 100%;
+    //   padding: 0 25px;
+    }
+    .icons {
+      .wrap {
+        font-size: 12px;
+      }
+    }
+    .profile-wrap {
+      .ant-layout-content {
+        .title {
+          font-size: 16px;
         }
-        .icons {
-            .wrap{
-                font-size: 12px;
+      }
+    }
+  }
+  .profile-row {
+    padding: 70px 0px 0px 0px;
+    @include respond-to($breakpoint-md) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  .left-wrap {
+    border-right: 1px solid $light_gray_color;
+    @include respond-to($breakpoint-md) {
+      border-right: none !important;
+      display: flex;
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+    img {
+        @include respond-to($breakpoint-xs) {
+        width: 175px !important;
+      }
+    }
+  }
+  .right-wrap {
+    @include respond-to($breakpoint-md) {
+      display: flex;
+      flex: 0 0 100%;
+      max-width: 100%;
+      flex-direction: column;
+    }
+    @include respond-to($breakpoint-sm) {
+        margin-top: 25px;
+    }
+    .gist-wrap {
+      margin-bottom: 20px;
+      .ant-skeleton {
+        padding-left: 25px;
+        @include respond-to($breakpoint-md) {
+          padding-left: 0px;
+        }
+      }
+      .ant-card {
+        border: none;
+        .ant-card-body {
+          padding: 0px;
+          padding-left: 25px;
+
+          @include respond-to($breakpoint-md) {
+            padding-left: 0px;
+          }
+          .header {
+            @include respond-to($breakpoint-md) {
+              display: flex;
+              align-items: center;
+              flex-direction: column;
             }
-        }
-        .profile-wrap{
-            .ant-layout-content{
-                .title{
-                    font-size: 16px;
-                }
+            .profile-wrap {
+              @include respond-to($breakpoint-md) {
+                margin-bottom: 20px;
+              }
             }
+          }
         }
+      }
+      .git-container {
+        cursor: pointer;
+        margin-top: 20px;
+        height: 200px;
+        overflow: hidden;
+        background-color: $white_color;
+        border-radius: 8px;
+        box-shadow: $white_box_shadow;
+      }
     }
-    .profile-row{
-        padding: 70px 0px 0px 0px;
-        @media (max-width: $breakpoint-md){
-            display: flex; 
-            flex-direction: column;
-            align-items: center;
-        }
-
-
-
+  }
+  .image-wrap {
+    .ant-image-img {
+      width: 250px;
+      border-radius: 50%;
     }
-    .left-wrap{ 
-        border-right: 1px solid $light_gray_color;
-        @media (max-width: $breakpoint-md){
-            border-right: none !important;
-            display: flex;
-            flex: 0 0 100%;
-            max-width: 100%;
-        }
-         img{
-            @media (max-width: $breakpoint-xs){
-                width: 175px !important;
-            }
-         }
+    .title {
+      margin: 20px 0px 30px 0px;
     }
-    .right-wrap{ 
-        @media (max-width: $breakpoint-md){
-            display: flex;
-            flex: 0 0 100%;
-            max-width: 100%; 
-            flex-direction: column;
-        }
-
-
-
-        .gist-wrap{
-            // width: 75%;
-            .ant-card{
-                border:none;
-                .ant-card-body{
-                    padding: 0px;
-                    padding-left: 25px;
-                    @media (max-width: $breakpoint-md){
-                        padding-left: 0px;
-                    }
-                    .header{
-                        @media (max-width: $breakpoint-md){
-                            display: flex;
-                            align-items: center;
-                            flex-direction: column;
-                        }
-                        .profile-wrap{
-                            @media (max-width: $breakpoint-md){
-                                margin-bottom: 20px;
-                            }
-                        }
-                    }
-                }
-            }
-            .git-container{
-                margin-top: 20px;
-                height: 200px;
-                overflow: hidden;
-                background-color: $white_color;
-                border-radius: 8px;
-                box-shadow: $white_box_shadow
-                
-            }
-            
-        }
+    a {
+      box-shadow: $white_box_shadow;
+      padding: 10px 20px;
+      border-radius: 5px;
+      
     }
-    .image-wrap{
-        .ant-image-img{
-            width: 250px;
-            border-radius: 50%;
-        }
-        .title{
-            margin: 20px 0px 30px 0px;
-        }
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    .profile-wrap {
+      border: none;
     }
-    .header{
-        display: flex;
-        align-items: center;
-        .profile-wrap{
-            border:none;
-        }
+  }
+}
+.gist__bash {
+  margin-bottom: 0;
+  margin-top: 0;
+  min-height: 250px;
+  padding: 20px 20px 10px;
+  overflow: hidden;
+  .gist {
+    .blob-wrapper {
+      overflow-x: hidden;
+      overflow-y: hidden;
     }
-     
+  }
 }
