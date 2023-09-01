@@ -1,24 +1,19 @@
-import React from "react";
-import { Button, Image, Space, Layout, Typography } from "antd";
-import {
-  ForkOutlined,
-  StarFilled,
-  StarOutlined,
-  StarTwoTone,
-} from "@ant-design/icons";
-import { useAppDispatch, useAppSelector } from "../../../app-redux/hooks";
+import React from 'react';
+import { Button, Image, Space, Layout, Typography } from 'antd';
+import { ForkOutlined, StarFilled, StarTwoTone } from '@ant-design/icons';
+import { useAppDispatch, useAppSelector } from '../../../app-redux/hooks';
 import {
   forkGist,
   starGist,
-} from "../../../app-redux/modules/gist/actions/gistActions";
+} from '../../../app-redux/modules/gist/actions/gistActions';
 import {
   selectIsForked,
   selectIsForkedArr,
   selectIsStarred,
   selectIsStarredArr,
-} from "../../../app-redux/modules/gist/gistSlice";
-import { Link } from "react-router-dom";
-import isUserLoggedIn from "../../../common/utils/auth";
+} from '../../../app-redux/modules/gist/gistSlice';
+import { Link } from 'react-router-dom';
+import isUserLoggedIn from '../../../common/utils/auth';
 const { Content } = Layout;
 
 const Columns = () => {
@@ -29,35 +24,37 @@ const Columns = () => {
   const isForkedArr = useAppSelector(selectIsForkedArr);
   return [
     {
-      title: "Name",
-      dataIndex: "name",
+      title: 'Name',
+      dataIndex: 'name',
       render: (text: string, record: Record<string, any>) => (
         <Content className="name-cell">
-          <Image src={record.image} />{" "}
-          <Link to={`/gist/${record.key}`}>{text}</Link>{" "}
+          <Image src={record.image} />{' '}
+          <Link datatest-id="gist-name" to={`/gist/${record.key}`}>
+            {text}
+          </Link>{' '}
         </Content>
       ),
     },
     {
-      title: "Date",
-      dataIndex: "date",
+      title: 'Date',
+      dataIndex: 'date',
     },
     {
-      title: "Time",
-      dataIndex: "time",
+      title: 'Time',
+      dataIndex: 'time',
     },
     {
-      title: "Keyword",
-      dataIndex: "keyword",
+      title: 'Keyword',
+      dataIndex: 'keyword',
     },
     {
-      title: "Notbook Name",
-      dataIndex: "notebook",
+      title: 'Notbook Name',
+      dataIndex: 'notebook',
     },
     {
-      title: "Action",
-      dataIndex: "",
-      key: "x",
+      title: 'Action',
+      dataIndex: '',
+      key: 'x',
       render: (text: string, record: Record<string, any>) => {
         return (
           isUserLoggedIn() && (

@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../../store";
+import { RootState } from "../../store--1";
 import { createGistContent, deleteGist, forkGist, getGistDetails, getGistPublic, starGist } from "./actions/gistActions";
 import { ApiResponse, GistState } from "../../../common/typings/app";
 import { useAppDispatch } from "../../hooks";
@@ -19,7 +19,8 @@ const initialState: GistState = {
   starCount: 0,
   forkCount: 0,
   isStarredArr: [],
-  isForkedArr: []
+  isForkedArr: [],
+  isDeleted: false,
 };
 export const gistSlice = createSlice({
   name: "gist",
@@ -50,6 +51,7 @@ export const gistSlice = createSlice({
     deleteGistValue: (state, action) => {
       const id = action.payload;
       state.publicGist = state.publicGist.filter((item: Record<string, any>) => item.id !== id);
+      state.isDeleted = true;
     }
   },
   extraReducers: (builder) => {
@@ -72,7 +74,6 @@ export const gistSlice = createSlice({
       state.loader = false;
     });
     builder.addCase(getGistDetails.fulfilled, (state, action: PayloadAction<ApiResponse>) => {
-      console.log('data2', action.payload);
       state.loader = false;
       state.gistDetails = action.payload
     });
@@ -115,7 +116,7 @@ export const gistSlice = createSlice({
     });
     builder.addCase(createGistContent.fulfilled, (state, action: PayloadAction<ApiResponse>) => {
       state.loader = false;
-      message.success(`Gist created successfully`)
+      // message.success(`Gist created successfully`)
     });
     // Delete Gist
     builder.addCase(deleteGist.pending, (state) => {
@@ -153,5 +154,6 @@ export const selectIsStarredArr = (state: RootState) => state.gist.isStarredArr;
 export const selectIsForkedArr = (state: RootState) => state.gist.isForkedArr;
 export const selectForkCount = (state: RootState) => state.gist.forkCount;
 export const selectStarCount = (state: RootState) => state.gist.starCount;
+export const selectIsDeleted = (state: RootState) => state.gist.isDeleted;
 
 export default gistSlice.reducer;

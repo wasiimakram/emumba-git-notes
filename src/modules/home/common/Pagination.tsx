@@ -1,14 +1,14 @@
-import React from "react";
-import { Button, Layout, Typography, Pagination, Row, Col } from "antd";
-import { ArrowRightOutlined } from "@ant-design/icons";
+import React from 'react';
+import { Button, Layout, Typography, Pagination, Row, Col } from 'antd';
+import { ArrowRightOutlined } from '@ant-design/icons';
 import {
   handleManualNext,
   handlePageChange,
   selectPage,
   selectPerPage,
   selectTotal,
-} from "../../../app-redux/modules/gist/gistSlice";
-import { useAppDispatch, useAppSelector } from "../../../app-redux/hooks";
+} from '../../../app-redux/modules/gist/gistSlice';
+import { useAppDispatch, useAppSelector } from '../../../app-redux/hooks';
 
 const { Content } = Layout;
 const { Text } = Typography;

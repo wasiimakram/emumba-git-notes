@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { Layout, Typography, Input } from "antd";
-import "./index.scss";
-import ReactEmbedGist from "react-embed-gist";
-import { GistProps } from "../../../common/typings/app";
+import React from 'react';
+import ReactEmbedGist from 'react-embed-gist';
+import { GistProps } from '../../../common/typings/app';
+import './index.scss';
 
 const GistCode: React.FC<GistProps> = ({ id, file }) => {
   return (

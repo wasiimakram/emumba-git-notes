@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { Layout, Input, Button, Form } from "antd";
-import { MinusCircleOutlined } from "@ant-design/icons";
-import { AddFormValues } from "../../../../common/typings/app";
-import "./../../gist.scss";
+import React, { useEffect } from 'react';
+import { Layout, Input, Button, Form } from 'antd';
+import { MinusCircleOutlined } from '@ant-design/icons';
+import { AddFormValues } from '../../../../common/typings/app';
+import './../../gist.scss';
 const { Content } = Layout;
 const { TextArea } = Input;
 
@@ -13,7 +13,7 @@ const FormContent: React.FC<Props> = ({ onFinish }) => {
   const [form] = Form.useForm();
   useEffect(() => {
     form.setFieldsValue({
-      files: [{ fileName: "", content: "" }],
+      files: [{ fileName: '', content: '' }],
     });
   }, [form]);
   return (
@@ -25,29 +25,39 @@ const FormContent: React.FC<Props> = ({ onFinish }) => {
     >
       <Form.Item
         name="description"
-        rules={[{ required: true, message: "Please fill the field" }]}
+        rules={[{ required: true, message: 'Please fill the field' }]}
       >
-        <Input placeholder="Enter your description..." />
+        <Input
+          data-testid="description"
+          placeholder="Enter your description..."
+        />
       </Form.Item>
 
       <Form.List name="files">
         {(fields, { add, remove }) => (
-          <>
+          <div>
             {fields.map(({ key, name, ...restField }, index) => (
-              <Content className="iteratables">
+              <Content className="iteratables" key={index}>
                 <Form.Item
                   {...restField}
-                  name={[name, "fileName"]}
-                  rules={[{ required: true, message: "Please fill the field" }]}
+                  name={[name, 'fileName']}
+                  rules={[{ required: true, message: 'Please fill the field' }]}
                 >
-                  <Input placeholder="Enter your file name..." />
+                  <Input
+                    data-testid="fileName"
+                    placeholder="Enter your file name..."
+                  />
                 </Form.Item>
                 <Form.Item
                   {...restField}
-                  name={[name, "content"]}
-                  rules={[{ required: true, message: "Please fill the field" }]}
+                  name={[name, 'content']}
+                  rules={[{ required: true, message: 'Please fill the field' }]}
                 >
-                  <TextArea rows={4} placeholder="Enter file content..." />
+                  <TextArea
+                    data-testid="fileContent"
+                    rows={4}
+                    placeholder="Enter file content..."
+                  />
                 </Form.Item>
 
                 {index > 0 ? (
@@ -59,15 +69,25 @@ const FormContent: React.FC<Props> = ({ onFinish }) => {
               </Content>
             ))}
             <Form.Item>
-              <Button className="add-button" onClick={() => add()} block>
+              <Button
+                className="add-button"
+                data-testid="add-file"
+                onClick={() => add()}
+                block
+              >
                 Add field
               </Button>
             </Form.Item>
-          </>
+          </div>
         )}
       </Form.List>
       <Form.Item>
-        <Button className="add-button" type="primary" htmlType="submit">
+        <Button
+          className="add-button"
+          data-testid="submit-gist"
+          type="primary"
+          htmlType="submit"
+        >
           Submit
         </Button>
       </Form.Item>

@@ -1,21 +1,22 @@
-import React, { useState } from "react";
-import { Row } from "antd";
-import GridCard from "./GridSingle";
-import CardSlate from "../../../components/common/BlankSlate/CardSlate";
-import PaginationWrap from "./Pagination";
-import { useAppDispatch, useAppSelector } from "../../../app-redux/hooks";
+import React, { useState } from 'react';
+import { Row } from 'antd';
+import GridCard from './GridSingle';
+import CardSlate from '../../../components/common/BlankSlate/CardSlate';
+import PaginationWrap from './Pagination';
+import { useAppDispatch, useAppSelector } from '../../../app-redux/hooks';
 import {
   handleNavSearch,
+  selectIsDeleted,
   selectIsLoading,
   selectPage,
   selectPerPage,
   selectPublicGist,
-} from "../../../app-redux/modules/gist/gistSlice";
-import { getGistPublic } from "../../../app-redux/modules/gist/actions/gistActions";
-import ToggleButtons from "./ToggleButtons";
-import NoRecord from "../../../components/common/NoRecord/NoRecord";
-import { useLocation } from "react-router-dom";
-import "./../home.scss";
+} from '../../../app-redux/modules/gist/gistSlice';
+import { getGistPublic } from '../../../app-redux/modules/gist/actions/gistActions';
+import ToggleButtons from './ToggleButtons';
+import NoRecord from '../../../components/common/NoRecord/NoRecord';
+import { useLocation } from 'react-router-dom';
+import './../home.scss';
 
 interface GridProps {}
 const GridView: React.FC<GridProps> = ({}) => {
@@ -25,30 +26,33 @@ const GridView: React.FC<GridProps> = ({}) => {
   const perPage = useAppSelector(selectPerPage);
   const dispatch = useAppDispatch();
   const pageRecord = useAppSelector(selectPublicGist);
+  const isDeleted = useAppSelector(selectIsDeleted);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const search = queryParams.get("query") || "";
+  const search = queryParams.get('query') || '';
   React.useEffect(() => {
-    search !== ""
+    search !== ''
       ? dispatch(handleNavSearch(search))
-      : dispatch(getGistPublic({ page, perPage }));
+      : !isDeleted && dispatch(getGistPublic({ page, perPage }));
   }, [dispatch, page]);
   return (
-    <>
+    <div data-testid="grid-view">
       <ToggleButtons />
       <Row className="grid-card-content">
         {pageRecord.length > 0 && !isLoading ? (
           pageRecord.map((item: Record<string, any>) => (
-            <GridCard item={item} />
+            <GridCard item={item} key={item.id} />
           ))
         ) : pageRecord.length === 0 && !isLoading ? (
-          <NoRecord />
+          <NoRecord key="no-record" />
         ) : (
-          skeltonData.map((_, index) => <CardSlate />)
+          skeltonData.map((_, index) => (
+            <CardSlate data-testid="loading" key={index} />
+          ))
         )}
       </Row>
       {pageRecord.length > 0 && <PaginationWrap />}
-    </>
+    </div>
   );
 };
 export default GridView;

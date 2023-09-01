@@ -1,17 +1,31 @@
-import { configureStore, Action, ThunkAction } from "@reduxjs/toolkit";
+import { configureStore, Action, ThunkAction, combineReducers, PreloadedState } from "@reduxjs/toolkit";
 import thunkMiddleware from "redux-thunk";
 import gistReducer from './modules/gist/gistSlice'
 import profileReducer from './modules/profile/profileSlice'
 
-export const store = configureStore({
-  reducer: {
-    gist: gistReducer,
-    profile: profileReducer,
-  },
-  middleware: [thunkMiddleware],
-});
-export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;
+// export const store = configureStore({
+//   reducer: {
+//     gist: gistReducer,
+//     profile: profileReducer,
+//   },
+//   middleware: [thunkMiddleware],
+// });
+
+
+const rootReducer = combineReducers({
+  gist: gistReducer,
+  profile: profileReducer,
+})
+export function setupStore(preloadedState?: PreloadedState<RootState>) {
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState
+  })
+}
+
+export type AppStore = ReturnType<typeof setupStore>
+export type AppDispatch = AppStore['dispatch']
+export type RootState = ReturnType<typeof rootReducer>
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
   RootState,

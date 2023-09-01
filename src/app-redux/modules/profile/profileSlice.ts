@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../../store";
+import { RootState } from "../../store--1";
 import { getMyGist } from "./actions/profileActions";
 import { ApiResponse, ProfileGistState } from "../../../common/typings/app";
 import { useAppDispatch } from "../../hooks";

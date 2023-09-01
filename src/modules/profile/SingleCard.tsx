@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   Typography,
   Card,
@@ -8,23 +8,24 @@ import {
   Col,
   Skeleton,
   Pagination,
-} from "antd";
-import { Content } from "antd/es/layout/layout";
-import { useHistory } from "react-router-dom";
-import GistCode from "../../components/common/GistCode";
-import { formatTimeDifference } from "../../common/utils/timeUtils";
-import ShortProfile from "../../components/common/Profile";
-import GistButtons from "../../components/common/GistButtons";
-import { useAppDispatch, useAppSelector } from "../../app-redux/hooks";
+  Layout,
+} from 'antd';
+
+import { useHistory } from 'react-router-dom';
+import GistCode from '../../components/common/GistCode';
+import { formatTimeDifference } from '../../common/utils/timeUtils';
+import ShortProfile from '../../components/common/Profile';
+import GistButtons from '../../components/common/GistButtons';
+import { useAppDispatch, useAppSelector } from '../../app-redux/hooks';
 import {
   handlePageChange,
   selectIsLoading,
   selectMyGist,
   selectPage,
   selectPerPage,
-} from "../../app-redux/modules/profile/profileSlice";
-import { getMyGist } from "../../app-redux/modules/profile/actions/profileActions";
-
+} from '../../app-redux/modules/profile/profileSlice';
+import { getMyGist } from '../../app-redux/modules/profile/actions/profileActions';
+const { Content } = Layout;
 interface GridProps {}
 const SingleCard: React.FC<GridProps> = ({}) => {
   const history = useHistory();
@@ -52,11 +53,11 @@ const SingleCard: React.FC<GridProps> = ({}) => {
                 <Card>
                   <Content className="header">
                     <ShortProfile
-                      name={item.owner?.login || ""}
-                      avatar={item.owner?.avatar_url || ""}
-                      time={formatTimeDifference(item.created_at) || ""}
+                      name={item.owner?.login || ''}
+                      avatar={item.owner?.avatar_url || ''}
+                      time={formatTimeDifference(item.created_at) || ''}
                       keyword="Web Server"
-                      file={item.files ? Object.keys(item.files)[0] || "" : ""}
+                      file={item.files ? Object.keys(item.files)[0] || '' : ''}
                     />
                     <GistButtons gistId={item.id} />
                   </Content>

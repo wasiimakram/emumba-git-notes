@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Layout, Typography, Input, Row, Col } from "antd";
-import Buttons from "./common/Button";
-import SearchInput from "./common/Search";
-import { useHistory } from "react-router-dom";
-import "./layout.scss";
+import React, { useState } from 'react';
+import { Layout, Typography, Input, Row, Col } from 'antd';
+import Buttons from './common/Button';
+import SearchInput from './common/Search';
+import { useHistory } from 'react-router-dom';
+import './layout.scss';
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
@@ -25,8 +25,7 @@ const Navbar: React.FC = () => {
             <Content
               className="logo"
               onClick={() => {
-                history.push("/");
-                // window.location.href = "/";
+                history.push('/');
               }}
             >
               <img className="img-fluid" src="assets/images/logo.jpg" alt="" />

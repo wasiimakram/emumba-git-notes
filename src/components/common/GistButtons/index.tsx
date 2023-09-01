@@ -1,34 +1,31 @@
-import React, { useState } from "react";
-import { Layout, Typography } from "antd";
+import React, { useState } from 'react';
+import { Layout, Typography, message } from 'antd';
 import {
   DeleteOutlined,
   EditOutlined,
   ForkOutlined,
   StarFilled,
   StarTwoTone,
-} from "@ant-design/icons";
-import "./index.scss";
-import isUserLoggedIn from "../../../common/utils/auth";
+} from '@ant-design/icons';
+import isUserLoggedIn from '../../../common/utils/auth';
 import {
-  deleteGist,
   forkGist,
   starGist,
-} from "../../../app-redux/modules/gist/actions/gistActions";
-import { useAppDispatch, useAppSelector } from "../../../app-redux/hooks";
-import { useHistory, useParams } from "react-router-dom";
+} from '../../../app-redux/modules/gist/actions/gistActions';
+import { useAppDispatch, useAppSelector } from '../../../app-redux/hooks';
+import { useHistory, useParams } from 'react-router-dom';
 import {
   deleteGistValue,
   selectForkCount,
   selectIsForked,
-  selectIsStarred,
   selectIsStarredArr,
   selectStarCount,
-} from "../../../app-redux/modules/gist/gistSlice";
-import { getMyGist } from "../../../app-redux/modules/profile/actions/profileActions";
+} from '../../../app-redux/modules/gist/gistSlice';
 import {
   selectPage,
   selectPerPage,
-} from "../../../app-redux/modules/gist/gistSlice";
+} from '../../../app-redux/modules/gist/gistSlice';
+import './index.scss';
 
 const { Content } = Layout;
 const { Text } = Typography;
@@ -48,53 +45,59 @@ const GistButtons: React.FC<GistProps> = ({ gistId }) => {
   const pageId = id ?? gistId;
 
   const hadleEdit = () => {
+    console.log('EDIT CLICKED');
     history.push(`/edit/${pageId}`);
   };
   const handleDelete = async () => {
-    // dispatch(deleteGistValue(pageId));
-    dispatch(deleteGist({ id: pageId }));
-    await dispatch(getMyGist({ page, perPage }));
+    try {
+      dispatch(deleteGistValue(pageId));
+      message.success('Gist deleted successfully!');
+      history.push('/');
+    } catch (err) {}
+    // dispatch(deleteGist({ id: pageId }));
+    // await dispatch(getMyGist({ page, perPage }));
   };
   return (
     <Content className="icons">
       {isUserLoggedIn() && (
         <>
-          <Text className="wrap" onClick={hadleEdit}>
+          <Text className="wrap" onClick={hadleEdit} data-testid="edit-link">
             <EditOutlined /> <Text>Edit</Text>
           </Text>
           <Text className="wrap" onClick={handleDelete}>
             <DeleteOutlined /> <Text>Delete</Text>
           </Text>
+
+          <Text className="wrap">
+            <Text onClick={() => dispatch(starGist({ id: pageId }))}>
+              {isStaredArr.includes(pageId) ? (
+                <>
+                  <StarFilled /> Unstar
+                </>
+              ) : (
+                <>
+                  <StarTwoTone /> Star
+                </>
+              )}
+            </Text>
+            <Text className="counter">{starCount}</Text>
+          </Text>
+          <Text className="wrap">
+            <Text onClick={() => dispatch(forkGist({ id: pageId }))}>
+              {isForked ? (
+                <>
+                  <ForkOutlined /> Unfork
+                </>
+              ) : (
+                <>
+                  <ForkOutlined /> Fork
+                </>
+              )}
+            </Text>
+            <Text className="counter">{forkCount}</Text>
+          </Text>
         </>
       )}
-      <Text className="wrap">
-        <Text onClick={() => dispatch(starGist({ id: pageId }))}>
-          {isStaredArr.includes(pageId) ? (
-            <>
-              <StarFilled /> Unstar
-            </>
-          ) : (
-            <>
-              <StarTwoTone /> Star
-            </>
-          )}
-        </Text>
-        <Text className="counter">{starCount}</Text>
-      </Text>
-      <Text className="wrap">
-        <Text onClick={() => dispatch(forkGist({ id: pageId }))}>
-          {isForked ? (
-            <>
-              <ForkOutlined /> Unfork
-            </>
-          ) : (
-            <>
-              <ForkOutlined /> Fork
-            </>
-          )}
-        </Text>
-        <Text className="counter">{forkCount}</Text>
-      </Text>
     </Content>
   );
 };

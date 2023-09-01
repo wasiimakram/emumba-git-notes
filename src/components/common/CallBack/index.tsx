@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { Layout, Typography } from "antd";
+import React, { useState } from 'react';
+import { Layout, Typography } from 'antd';
 
 const { Content } = Layout;
 
 const CallBack: React.FC = () => {
   const handleCallback = async () => {
-    const code = new URLSearchParams(window.location.search).get("code");
+    const code = new URLSearchParams(window.location.search).get('code');
     if (code) {
       const clientId = process.env.REACT_APP_CLIENT_ID;
       const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
@@ -29,10 +29,10 @@ const CallBack: React.FC = () => {
 
       // const data = await response.json();
       // const accessToken = data.access_token;
-      const accessToken = process.env.REACT_APP_ACCESS_TOKEN; // direct token
+      const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
       if (accessToken) {
-        localStorage.setItem("access_token", accessToken);
-        window.location.href = "/";
+        localStorage.setItem('access_token', accessToken);
+        window.location.href = '/';
       }
     }
   };

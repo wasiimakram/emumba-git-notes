@@ -48,7 +48,8 @@ export type GistState = {
     starCount: number;
     forkCount: number;
     isStarredArr: string[]
-    isForkedArr: string[]
+    isForkedArr: string[],
+    isDeleted: boolean,
 
 };
 export type ProfileGistState = {

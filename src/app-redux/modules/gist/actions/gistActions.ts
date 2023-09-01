@@ -68,6 +68,7 @@ export const updateGistContent = createAsyncThunk<ApiResponse, GistUpdate>(
             if (res.status === success_code) return res.data;
             else throw new Error(res.data.error || res.statusText);
         } catch (error: any) {
+            // message.success("Gist Updated Successfully!")
             message.error(error?.message);
             throw error;
         }

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Table, Pagination } from "antd";
-import { Content } from "antd/es/layout/layout";
+import React, { useState, useEffect } from 'react';
+import { Table, Pagination, Layout } from 'antd';
 import {
   handlePageChange,
   resetListingValues,
@@ -9,12 +8,14 @@ import {
   selectPerPage,
   selectPublicGist,
   selectTotal,
-} from "../../../app-redux/modules/gist/gistSlice";
-import { useAppDispatch, useAppSelector } from "../../../app-redux/hooks";
-import { getGistPublic } from "../../../app-redux/modules/gist/actions/gistActions";
-import Columns from "./Column";
-import ToggleButtons from "./ToggleButtons";
-import "./../home.scss";
+} from '../../../app-redux/modules/gist/gistSlice';
+import { useAppDispatch, useAppSelector } from '../../../app-redux/hooks';
+import { getGistPublic } from '../../../app-redux/modules/gist/actions/gistActions';
+import Columns from './Column';
+import ToggleButtons from './ToggleButtons';
+import './../home.scss';
+
+const { Content } = Layout;
 
 const ListView: React.FC = () => {
   const page = useAppSelector(selectPage);
@@ -32,23 +33,22 @@ const ListView: React.FC = () => {
       dispatch(resetListingValues());
     };
   }, []);
-
   const updateRecord = pageRecord.map((item: Record<string, any>) => ({
     key: item.id.toString(),
     name: item.owner.login,
     date: item.created_at,
     time: item.created_at,
-    keyword: "WebServer",
-    notebook: Object.keys(item.files)[0] || "-",
+    keyword: 'WebServer',
+    notebook: (item.files && Object.keys(item.files)[0]) || '-',
     image: item.owner.avatar_url,
   }));
   const emptyData = new Array(12).fill({}).map((_, index) => ({ key: index }));
 
   return (
-    <Content className="list-view">
+    <Content className="list-view" data-testid="list-view">
       <ToggleButtons />
       <Table
-        rowSelection={{ type: "checkbox" }}
+        rowSelection={{ type: 'checkbox' }}
         className="page-table table-responsive"
         columns={Columns()}
         dataSource={!isLoading ? updateRecord : emptyData}
