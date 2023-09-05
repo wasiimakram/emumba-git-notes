@@ -5,16 +5,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { store } from './app-redux/store--1';
 import { Provider } from 'react-redux';
-
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-// strict mode
+const queryClient = new QueryClient();
+queryClient.setQueryData('pagination', { page: 1, perPage: 12, total: 3000 });
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
+    {/* <Provider store={store}> */}
+    <QueryClientProvider client={queryClient}>
       <App />
-    </Provider>
+    </QueryClientProvider>
+    {/* </Provider> */}
   </React.StrictMode>
 );
 

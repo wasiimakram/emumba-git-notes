@@ -9,22 +9,26 @@ import {
   selectTotal,
 } from '../../../app-redux/modules/gist/gistSlice';
 import { useAppDispatch, useAppSelector } from '../../../app-redux/hooks';
+import { usePagination } from '../../../data/hooks/usePagination';
 
 const { Content } = Layout;
 const { Text } = Typography;
 
 type Props = {};
 const PaginationWrap: React.FC<Props> = () => {
-  const dispatch = useAppDispatch();
-  const page = useAppSelector(selectPage);
-  const perPage = useAppSelector(selectPerPage);
-  const total = useAppSelector(selectTotal);
-
+  // const dispatch = useAppDispatch();
+  // const page = useAppSelector(selectPage);
+  // const perPage = useAppSelector(selectPerPage);
+  // const total = useAppSelector(selectTotal);
+  const { setPage, setPerPage, getPagination } = usePagination();
+  const { page, perPage, total } = getPagination();
+  console.log(page, perPage, total);
   const handleChange = (newPage: number) => {
-    dispatch(handlePageChange(newPage));
+    setPage(newPage);
+    // dispatch(handlePageChange(newPage));
   };
   const onNext = () => {
-    dispatch(handleManualNext());
+    // dispatch(handleManualNext());
   };
   return (
     <Content className="pagination-wrap">

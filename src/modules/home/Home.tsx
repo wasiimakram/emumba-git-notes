@@ -9,7 +9,8 @@ import './home.scss';
 const { Content } = Layout;
 
 const Home: React.FC = () => {
-  const layout = useAppSelector((state) => state.gist.pageLayout);
+  // const layout = useAppSelector((state) => state.gist.pageLayout);
+  const layout: string = '';
   return (
     <Layout className="home-main-wrap">
       <Content className="ant-container">
