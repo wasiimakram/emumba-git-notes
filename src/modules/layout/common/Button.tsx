@@ -1,8 +1,8 @@
-import React from "react";
-import isUserLoggedIn from "../../../common/utils/auth";
-import { Button, Dropdown, Layout, Menu, MenuProps, Typography } from "antd";
-import { Link } from "react-router-dom";
-import { items } from "./Columns";
+import React from 'react';
+import isUserLoggedIn from '../../../common/utils/auth';
+import { Button, Dropdown, Layout, Menu, MenuProps, Typography } from 'antd';
+import { Link } from 'react-router-dom';
+import { items } from './Columns';
 type Props = {
   handleLogin: () => void;
 };

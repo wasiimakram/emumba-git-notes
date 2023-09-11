@@ -25,29 +25,35 @@ import {
   selectPerPage,
 } from '../../app-redux/modules/profile/profileSlice';
 import { getMyGist } from '../../app-redux/modules/profile/actions/profileActions';
+import { useMyGist } from '../../data/gist/useGist';
 const { Content } = Layout;
-interface GridProps {}
-const SingleCard: React.FC<GridProps> = ({}) => {
+interface GridProps {
+  pageRecord: any;
+  isFetching: boolean;
+  page: number;
+  perPage: number;
+  setPage: any;
+}
+const SingleCard: React.FC<GridProps> = ({
+  pageRecord,
+  isFetching,
+  page,
+  perPage,
+  setPage,
+}) => {
   const history = useHistory();
-  const dispatch = useAppDispatch();
-  const isLoading = useAppSelector(selectIsLoading);
-  const page = useAppSelector(selectPage);
-  const perPage = useAppSelector(selectPerPage);
-  const pageRecord = useAppSelector(selectMyGist);
   const skeltonData = new Array(6).fill(null);
 
-  useEffect(() => {
-    dispatch(getMyGist({ page, perPage }));
-  }, [dispatch, page]);
+  // const { data: pageRecord, isFetching } = useMyGist(page, perPage);
 
   const handleClick = (id: string) => {
     history.push(`/gist/${id}`);
   };
   return (
     <Content className="gist-wrap">
-      {!isLoading && pageRecord
+      {!isFetching && pageRecord
         ? pageRecord.map((item: any) => {
-            const file = Object.keys(item.files)[0];
+            const file = item && Object.keys(item.files)[0];
             return (
               <Content className="gist-wrap">
                 <Card>
@@ -59,7 +65,7 @@ const SingleCard: React.FC<GridProps> = ({}) => {
                       keyword="Web Server"
                       file={item.files ? Object.keys(item.files)[0] || '' : ''}
                     />
-                    <GistButtons gistId={item.id} />
+                    <GistButtons gistId={item.id} isUser={item.owner.login} />
                   </Content>
                   <Content
                     className="git-container"
@@ -83,9 +89,7 @@ const SingleCard: React.FC<GridProps> = ({}) => {
         current={page}
         pageSize={perPage}
         total={25}
-        onChange={(page: number) => {
-          dispatch(handlePageChange(page));
-        }}
+        onChange={(page: number) => setPage(page)}
         showSizeChanger={false}
       />
     </Content>

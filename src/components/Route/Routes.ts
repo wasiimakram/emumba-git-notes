@@ -1,10 +1,12 @@
 import { Add, Details, Edit } from "../../modules/gist";
 import Home from "../../modules/home/Home";
 import Profile from "../../modules/profile/Profile";
+import StarGists from "../../modules/profile/StarGists";
 import CallBack from "../common/CallBack";
 
 const routes = [
     { path: "/create", component: Add, type: 'auth' },
+    { path: "/star-gists", component: StarGists, type: 'auth' },
     { path: "/my-gists", component: Profile, type: 'auth' },
     { path: "/gist/:id", component: Details, },
     { path: "/edit/:id", component: Edit, type: 'auth' },

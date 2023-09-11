@@ -14,22 +14,12 @@ import { usePagination } from '../../../data/hooks/usePagination';
 const { Content } = Layout;
 const { Text } = Typography;
 
-type Props = {};
-const PaginationWrap: React.FC<Props> = () => {
-  // const dispatch = useAppDispatch();
-  // const page = useAppSelector(selectPage);
-  // const perPage = useAppSelector(selectPerPage);
-  // const total = useAppSelector(selectTotal);
-  const { setPage, setPerPage, getPagination } = usePagination();
-  const { page, perPage, total } = getPagination();
-  console.log(page, perPage, total);
-  const handleChange = (newPage: number) => {
-    setPage(newPage);
-    // dispatch(handlePageChange(newPage));
-  };
-  const onNext = () => {
-    // dispatch(handleManualNext());
-  };
+type Props = {
+  page: number;
+  onNext: () => void;
+};
+const PaginationWrap: React.FC<Props> = ({ page, onNext }) => {
+  const total = 3000;
   return (
     <Content className="pagination-wrap">
       <Row>
@@ -47,7 +37,7 @@ const PaginationWrap: React.FC<Props> = () => {
             total={total}
             showLessItems
             showSizeChanger={false}
-            onChange={handleChange}
+            onChange={onNext}
           />
         </Col>
       </Row>

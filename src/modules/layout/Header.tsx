@@ -35,7 +35,8 @@ const Navbar: React.FC = () => {
             </Content>
           </Col>
           <Col className="headerFormm" span={9} offset={7}>
-            <SearchInput /> <Buttons handleLogin={handleLogin} />
+            <SearchInput />
+            <Buttons handleLogin={handleLogin} />
           </Col>
         </Row>
       </Content>

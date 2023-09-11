@@ -1,35 +1,20 @@
-import React from "react";
-import { Input } from "antd";
-import { useDispatch } from "react-redux";
-import {
-  handleNavSearch,
-  selectPage,
-  selectPerPage,
-} from "../../../app-redux/modules/gist/gistSlice";
-import { useAppDispatch, useAppSelector } from "../../../app-redux/hooks";
-import { getGistPublic } from "../../../app-redux/modules/gist/actions/gistActions";
-import { useHistory, useLocation } from "react-router-dom";
+import React from 'react';
+import { Input } from 'antd';
+import { useHistory, useLocation } from 'react-router-dom';
 
 type Props = {};
 const SearchInput: React.FC<Props> = () => {
   const { Search } = Input;
-  const page = useAppSelector(selectPage);
-  const perPage = useAppSelector(selectPerPage);
-  const dispatch = useDispatch();
-  const customDispatch = useAppDispatch();
   const history = useHistory();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const fetchData = (text: string) => {
-    if (text === "") {
-      queryParams.delete("query");
-      customDispatch(getGistPublic({ page, perPage }));
+    if (text === '') {
+      queryParams.delete('query');
     }
   };
-
   const onSearch = (text: string) => {
     history.push(`/?query=${text}`);
-    text !== "" && dispatch(handleNavSearch(text));
   };
 
   return (

@@ -8,83 +8,111 @@ import {
   StarTwoTone,
 } from '@ant-design/icons';
 import isUserLoggedIn from '../../../common/utils/auth';
-import {
-  forkGist,
-  starGist,
-} from '../../../app-redux/modules/gist/actions/gistActions';
-import { useAppDispatch, useAppSelector } from '../../../app-redux/hooks';
-import { useHistory, useParams } from 'react-router-dom';
-import {
-  deleteGistValue,
-  selectForkCount,
-  selectIsForked,
-  selectIsStarredArr,
-  selectStarCount,
-} from '../../../app-redux/modules/gist/gistSlice';
-import {
-  selectPage,
-  selectPerPage,
-} from '../../../app-redux/modules/gist/gistSlice';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import './index.scss';
+import {
+  UseQueryResult,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
+import { forkGist, starGist } from '../../../data/gist/actions';
+import { GistData } from '../../../common/typings/app';
+import { isStaredGist } from '../../../common/utils/common';
+import { useHome } from '../../../data/home/useHome';
+import {
+  useDeleteGist,
+  useStarGistMutation,
+  useStarGists,
+  useUnStarGistMutation,
+} from '../../../data/gist/useGist';
 
 const { Content } = Layout;
 const { Text } = Typography;
 interface GistProps {
   gistId?: string;
+  isUser?: string;
 }
-const GistButtons: React.FC<GistProps> = ({ gistId }) => {
+const GistButtons: React.FC<GistProps> = ({ gistId, isUser }) => {
+  const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
-  const dispatch = useAppDispatch();
   const history = useHistory();
-  const isForked = useAppSelector(selectIsForked);
-  const forkCount = useAppSelector(selectForkCount);
-  const starCount = useAppSelector(selectStarCount);
-  const isStaredArr = useAppSelector(selectIsStarredArr);
-  const page = useAppSelector(selectPage);
-  const perPage = useAppSelector(selectPerPage);
   const pageId = id ?? gistId;
+  const [forkId, setForkId] = useState<string>('');
+  const location = useLocation();
+  const userName = 'wasiimakram';
 
+  const { mutate: forkGistMutation } = useMutation(forkGist, {
+    onSuccess(data) {
+      message.success('Gist Forked Successfully!');
+      setForkId(data.staredId);
+    },
+  });
+  const { mutate: StarGist } = useStarGistMutation(pageId);
+  const handleStar = async () => {
+    await StarGist();
+  };
+  const { mutate: UnStarGist } = useUnStarGistMutation(pageId);
+  const handleUnStar = async () => {
+    await UnStarGist();
+  };
+  const handleFork = async () => {
+    await forkGistMutation(pageId);
+  };
   const hadleEdit = () => {
-    console.log('EDIT CLICKED');
     history.push(`/edit/${pageId}`);
   };
+  const { mutate: DeleteGist } = useDeleteGist(pageId);
   const handleDelete = async () => {
-    try {
-      dispatch(deleteGistValue(pageId));
-      message.success('Gist deleted successfully!');
+    await DeleteGist();
+    message.success('Gist Deleted Successfully!');
+    if (location.pathname.startsWith('/gists/')) {
       history.push('/');
-    } catch (err) {}
-    // dispatch(deleteGist({ id: pageId }));
-    // await dispatch(getMyGist({ page, perPage }));
+    }
   };
+  let staredData: GistData[] | undefined;
+  staredData = queryClient.getQueryData(['star-gists']);
+  const { data: apiStaredData, isFetching } = useStarGists();
+  if (staredData === undefined || staredData === null) {
+    staredData = apiStaredData;
+  }
+  console.log(apiStaredData);
+  const isStared = isStaredGist(staredData, pageId);
   return (
     <Content className="icons">
       {isUserLoggedIn() && (
         <>
-          <Text className="wrap" onClick={hadleEdit} data-testid="edit-link">
-            <EditOutlined /> <Text>Edit</Text>
-          </Text>
-          <Text className="wrap" onClick={handleDelete}>
-            <DeleteOutlined /> <Text>Delete</Text>
-          </Text>
+          {isUser === userName ? (
+            <>
+              <Text
+                className="wrap"
+                onClick={hadleEdit}
+                data-testid="edit-link"
+              >
+                <EditOutlined /> <Text>Edit</Text>
+              </Text>
+              <Text className="wrap" onClick={handleDelete}>
+                <DeleteOutlined /> <Text>Delete</Text>
+              </Text>
+            </>
+          ) : (
+            <></>
+          )}
 
           <Text className="wrap">
-            <Text onClick={() => dispatch(starGist({ id: pageId }))}>
-              {isStaredArr.includes(pageId) ? (
-                <>
-                  <StarFilled /> Unstar
-                </>
-              ) : (
-                <>
-                  <StarTwoTone /> Star
-                </>
-              )}
-            </Text>
-            <Text className="counter">{starCount}</Text>
+            {isStared ? (
+              <Text onClick={handleUnStar}>
+                <StarFilled /> Unstar
+              </Text>
+            ) : (
+              <Text onClick={handleStar}>
+                <StarTwoTone /> Star
+              </Text>
+            )}
           </Text>
           <Text className="wrap">
-            <Text onClick={() => dispatch(forkGist({ id: pageId }))}>
-              {isForked ? (
+            <Text onClick={handleFork}>
+              {forkId == pageId ? (
                 <>
                   <ForkOutlined /> Unfork
                 </>
@@ -94,7 +122,7 @@ const GistButtons: React.FC<GistProps> = ({ gistId }) => {
                 </>
               )}
             </Text>
-            <Text className="counter">{forkCount}</Text>
+            {/* <Text className="counter">{forkCount}</Text> */}
           </Text>
         </>
       )}

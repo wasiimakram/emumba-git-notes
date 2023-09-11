@@ -1,27 +1,31 @@
-import React from 'react';
-import { Button, Image, Space, Layout, Typography } from 'antd';
-import { ForkOutlined, StarFilled, StarTwoTone } from '@ant-design/icons';
-import { useAppDispatch, useAppSelector } from '../../../app-redux/hooks';
-import {
-  forkGist,
-  starGist,
-} from '../../../app-redux/modules/gist/actions/gistActions';
-import {
-  selectIsForked,
-  selectIsForkedArr,
-  selectIsStarred,
-  selectIsStarredArr,
-} from '../../../app-redux/modules/gist/gistSlice';
+import React, { useState } from 'react';
+import { Button, Image, Space, Layout, Typography, message } from 'antd';
 import { Link } from 'react-router-dom';
 import isUserLoggedIn from '../../../common/utils/auth';
+import { useMutation } from '@tanstack/react-query';
+import { forkGist, starGist } from '../../../data/gist/actions';
+import { ForkOutlined, StarFilled, StarTwoTone } from '@ant-design/icons';
 const { Content } = Layout;
 
-const Columns = () => {
-  const dispatch = useAppDispatch();
-  const isStared = useAppSelector(selectIsStarred);
-  const isForked = useAppSelector(selectIsForked);
-  const isStaredArr = useAppSelector(selectIsStarredArr);
-  const isForkedArr = useAppSelector(selectIsForkedArr);
+type Props = {};
+
+export default function Column() {
+  const [starId, setStarId] = useState<string>('');
+  const [forkId, setForkId] = useState<string>('');
+
+  const { mutate: starGistMutation } = useMutation(starGist, {
+    onSuccess(data) {
+      console.log('dataaa', data);
+      message.success('Gist Starred Successfully!');
+      setStarId(data.staredId);
+    },
+  });
+  const { mutate: forkGistMutation } = useMutation(forkGist, {
+    onSuccess(data) {
+      message.success('Gist Forked Successfully!');
+      setForkId(data.staredId);
+    },
+  });
   return [
     {
       title: 'Name',
@@ -60,25 +64,17 @@ const Columns = () => {
           isUserLoggedIn() && (
             <>
               <Typography.Text
-                onClick={() => dispatch(starGist({ id: record.key }))}
+                onClick={() => starGistMutation(record.key)}
                 className="table-action"
               >
-                {isStaredArr.includes(record.key) ? (
-                  <StarFilled />
-                ) : (
-                  <StarTwoTone />
-                )}
+                {starId == record.key ? <StarFilled /> : <StarTwoTone />}
               </Typography.Text>
 
               <Typography.Text
-                onClick={() => dispatch(forkGist({ id: record.key }))}
+                onClick={() => forkGistMutation(record.key)}
                 className="table-action"
               >
-                {isForkedArr.includes(record.key) ? (
-                  <ForkOutlined />
-                ) : (
-                  <ForkOutlined />
-                )}
+                <ForkOutlined />{' '}
               </Typography.Text>
             </>
           )
@@ -86,5 +82,4 @@ const Columns = () => {
       },
     },
   ];
-};
-export default Columns;
+}

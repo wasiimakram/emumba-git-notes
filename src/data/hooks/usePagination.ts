@@ -17,7 +17,6 @@ export const usePagination = () => {
 
     const setPerPage = (perPage: number) => {
         queryClient.setQueryData('pagination', { perPage });
-        // queryClient.setQueryData<PaginationData>('pagination', { perPage });
     };
 
     const getPagination = (): PaginationData => {

@@ -1,10 +1,15 @@
+import { getGistDetails, getHomeGist } from './actions';
+import { useQuery, QueryClient } from '@tanstack/react-query';
 
-import { useQuery } from 'react-query';
-import { getHomeGist } from './actions';
-
-export const useHome = () => {
-    const page = 1;
-    const perPage = 12;
-    const { data, isLoading } = useQuery(['gist', { page, perPage }], getHomeGist);
-    return { data, isLoading };
-};
+export function useHome(page: number, perPage: number) {
+    return useQuery(['gists'], () => getHomeGist(page, perPage), {
+        keepPreviousData: true,
+        // initialData: previousData,
+    });
+}
+export function useGistDetails(id: string) {
+    return useQuery(['gists-details'], () => getGistDetails(id), {
+        keepPreviousData: true,
+        refetchOnMount: true,
+    });
+}

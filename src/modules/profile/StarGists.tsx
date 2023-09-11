@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 import { Layout, Typography, Image, Row, Col } from 'antd';
 import SingleCard from './SingleCard';
 import './profile.scss';
-import { useMyGist } from '../../data/gist/useGist';
+import { useMyGist, useStarGists } from '../../data/gist/useGist';
 
 const { Content } = Layout;
 const { Title } = Typography;
 
-const Profile: React.FC = () => {
+const StarGists: React.FC = () => {
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(12);
   const handlePage = (page: number) => {
     setPage(page);
   };
-  const { data, isFetching } = useMyGist(page, perPage);
+  const { data, isFetching } = useStarGists(page, perPage);
   return (
     <Layout className="profile-main-wrap">
       <Content className="ant-container">
@@ -43,4 +43,4 @@ const Profile: React.FC = () => {
     </Layout>
   );
 };
-export default Profile;
+export default StarGists;

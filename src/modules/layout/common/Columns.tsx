@@ -20,6 +20,10 @@ export const items: MenuProps['items'] = [
   },
   {
     key: '3',
+    label: <Link to="/star-gists">Stared Gists</Link>,
+  },
+  {
+    key: '4',
     label: <Link to="/my-gists">My Gists</Link>,
   },
   {

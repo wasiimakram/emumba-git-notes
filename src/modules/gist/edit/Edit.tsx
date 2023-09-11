@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Typography, Table, Button, Skeleton } from 'antd';
+import { Layout, Typography, Table, Button, Skeleton, message } from 'antd';
 import ShortProfile from '../../../components/common/Profile';
 import GistButtons from '../../../components/common/GistButtons';
 import AceEditor from 'react-ace';
@@ -7,31 +7,18 @@ import 'ace-builds/src-noconflict/mode-java';
 import 'ace-builds/src-noconflict/theme-github';
 import 'ace-builds/src-noconflict/ext-language_tools';
 import { useParams } from 'react-router-dom';
-import {
-  getGistDetails,
-  updateGistContent,
-} from '../../../app-redux/modules/gist/actions/gistActions';
-import { useAppDispatch, useAppSelector } from '../../../app-redux/hooks';
-import {
-  selectGistDetails,
-  selectIsLoading,
-} from '../../../app-redux/modules/gist/gistSlice';
 import { formatTimeDifference } from '../../../common/utils/timeUtils';
+import { useGistDetails } from '../../../data/home/useHome';
 import './../gist.scss';
+import { QueryClient, useMutation } from '@tanstack/react-query';
+import { updateGist } from '../../../data/gist/actions';
 
 const { Content } = Layout;
 
 const Edit: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(getGistDetails({ id }));
-  }, [dispatch, id]);
-  const data = useAppSelector(selectGistDetails);
-  const isLoading = useAppSelector(selectIsLoading);
   const [editCode, setEditCode] = useState<string>('');
-
+  const { data, isLoading } = useGistDetails(id);
   useEffect(() => {
     if (data) {
       const newInitialContent =
@@ -39,10 +26,18 @@ const Edit: React.FC = () => {
       setEditCode(newInitialContent);
     }
   }, [data]);
-
+  const queryClient = new QueryClient();
   const onChange = (value: string) => {
     setEditCode(value);
   };
+  const { mutate: updateGistMutation } = useMutation(updateGist, {
+    onSuccess() {
+      message.success('Gist Added Successfully!');
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(['my-gists']);
+    },
+  });
   const updateContent = () => {
     const updatedContent = {
       gist_id: data.id,
@@ -53,9 +48,9 @@ const Edit: React.FC = () => {
         },
       },
     };
-    dispatch(updateGistContent({ id, updatedContent }));
+    updateGistMutation({ id, updatedContent });
+    // dispatch(updateGistContent({ id, updatedContent }));
   };
-  console.log('MOUNTED');
   return !isLoading && data ? (
     <Content className="ant-container" data-testid="edit-page">
       <Layout className="gist-main-wrap">

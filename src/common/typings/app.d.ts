@@ -69,6 +69,20 @@ export interface GistProps {
     file: string;
 }
 export interface GetGistArgs {
-    page: number;
-    perPage: number;
+    page?: number;
+    perPage?: number;
+}
+
+export interface GistData {
+    ownerName?: string;
+    ownerAvatar?: string;
+    fileName?: string;
+    creationDate?: string;
+    gistId?: number;
+    content?: string[];
+    time?: string;
+    description?: string;
+    id?: string;
+    gistType?: string | undefined;
+    starValue?: boolean;
 }

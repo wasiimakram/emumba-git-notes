@@ -7,14 +7,16 @@ import {
 } from '../../../app-redux/modules/gist/gistSlice';
 import { useDispatch } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../../../app-redux/hooks';
+import { QueryClient, useQuery } from '@tanstack/react-query';
 const { Content } = Layout;
 
-type Props = {};
-const ToggleButtons: React.FC = (props: Props) => {
-  const layout = useAppSelector(selectPageLayout);
-  const dispatch = useAppDispatch();
+type Props = {
+  onLayout: any;
+  layout: any;
+};
+const ToggleButtons: React.FC<Props> = ({ onLayout, layout }) => {
   const handleChange = (type: string) => {
-    dispatch(changePageLayout(type));
+    onLayout(type);
   };
   return (
     <Content className="page-icons">

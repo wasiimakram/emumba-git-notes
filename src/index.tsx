@@ -5,17 +5,35 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { store } from './app-redux/store--1';
 import { Provider } from 'react-redux';
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-const queryClient = new QueryClient();
-queryClient.setQueryData('pagination', { page: 1, perPage: 12, total: 3000 });
+const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // refetchOnMount: false,
+      // refetchOnWindowFocus: false,
+      // keepPreviousData: true,
+      // staleTime: twentyFourHoursInMs,
+      // cacheTime: Infinity,
+    },
+  },
+});
+
 root.render(
   <React.StrictMode>
     {/* <Provider store={store}> */}
     <QueryClientProvider client={queryClient}>
       <App />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
     {/* </Provider> */}
   </React.StrictMode>
