@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { Layout, Typography, Table, Button, Skeleton } from 'antd';
-import ShortProfile from '../../../components/common/Profile';
-import GistButtons from '../../../components/common/GistButtons';
+import '../gist.scss';
+
+import { Button, Layout, Skeleton } from 'antd';
+import React, { useEffect, useState } from 'react';
 import AceEditor from 'react-ace';
-import 'ace-builds/src-noconflict/mode-java';
-import 'ace-builds/src-noconflict/theme-github';
-import 'ace-builds/src-noconflict/ext-language_tools';
+
 import { useParams } from 'react-router-dom';
+
+import { useAppDispatch, useAppSelector } from '../../../app-redux/hooks';
 import {
   getGistDetails,
   updateGistContent,
 } from '../../../app-redux/modules/gist/actions/gistActions';
-import { useAppDispatch, useAppSelector } from '../../../app-redux/hooks';
 import {
   selectGistDetails,
   selectIsLoading,
 } from '../../../app-redux/modules/gist/gistSlice';
 import { formatTimeDifference } from '../../../common/utils/timeUtils';
-import './../gist.scss';
+import GistButtons from '../../../components/common/GistButtons';
+import ShortProfile from '../../../components/common/Profile';
 
 const { Content } = Layout;
 

@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import '../home.scss';
+
 import { Row } from 'antd';
-import GridCard from './GridSingle';
-import CardSlate from '../../../components/common/BlankSlate/CardSlate';
-import PaginationWrap from './Pagination';
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+
 import { useAppDispatch, useAppSelector } from '../../../app-redux/hooks';
+import { getGistPublic } from '../../../app-redux/modules/gist/actions/gistActions';
 import {
   handleNavSearch,
   selectIsDeleted,
@@ -12,11 +14,11 @@ import {
   selectPerPage,
   selectPublicGist,
 } from '../../../app-redux/modules/gist/gistSlice';
-import { getGistPublic } from '../../../app-redux/modules/gist/actions/gistActions';
-import ToggleButtons from './ToggleButtons';
+import CardSlate from '../../../components/common/BlankSlate/CardSlate';
 import NoRecord from '../../../components/common/NoRecord/NoRecord';
-import { useLocation } from 'react-router-dom';
-import './../home.scss';
+import GridCard from './GridSingle';
+import PaginationWrap from './Pagination';
+import ToggleButtons from './ToggleButtons';
 
 interface GridProps {}
 const GridView: React.FC<GridProps> = ({}) => {

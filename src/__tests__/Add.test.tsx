@@ -1,17 +1,12 @@
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from '@testing-library/react';
-import { mockServer } from './mocks/mockApi';
-import { gistResponse } from './mocks/response';
-import { matchMedia } from './common/common';
 import '@testing-library/jest-dom';
-import { renderWithProviders } from './common/test-utils';
-import { Add, Edit } from '../modules/gist';
+
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import { message } from 'antd';
+
+import { Add } from '../modules/gist';
+import { matchMedia } from './common/common';
+import { renderWithProviders } from './common/test-utils';
+import { mockServer } from './mocks/mockApi';
 
 beforeAll(() => mockServer.listen({ onUnhandledRequest: 'bypass' }));
 afterEach(() => mockServer.resetHandlers());
@@ -39,11 +34,11 @@ describe('Add Data Display', () => {
     fireEvent.change(fileContent, { target: { value: 'Lorem Ipsum' } });
     fireEvent.change(gistDescription, { target: { value: 'Swap File' } });
 
-    //Adding Gist
+    // Adding Gist
     fireEvent.click(screen.getByTestId('submit-gist'));
     await waitFor(() => {
       expect(message.success).toHaveBeenCalledWith(
-        'Gist created successfully!'
+        'Gist created successfully!',
       );
     });
   });

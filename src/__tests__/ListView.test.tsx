@@ -1,10 +1,12 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
+
+import { screen, waitFor } from '@testing-library/react';
+
+import ListView from '../modules/home/common/ListView';
+import { matchMedia } from './common/common';
+import { renderWithProviders } from './common/test-utils';
 import { mockServer } from './mocks/mockApi';
 import { gistResponse } from './mocks/response';
-import { matchMedia } from './common/common';
-import '@testing-library/jest-dom';
-import { renderWithProviders } from './common/test-utils';
-import ListView from '../modules/home/common/ListView';
 
 beforeAll(() => mockServer.listen({ onUnhandledRequest: 'bypass' }));
 afterEach(() => mockServer.resetHandlers());
@@ -22,7 +24,7 @@ describe('ListView Data Display', () => {
     });
     // Check data from Api
     expect(
-      await screen.findByText(gistResponse[0]?.owner?.login)
+      await screen.findByText(gistResponse[0]?.owner?.login),
     ).toBeInTheDocument();
   });
 });

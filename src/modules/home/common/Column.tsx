@@ -1,6 +1,8 @@
-import React from 'react';
-import { Button, Image, Space, Layout, Typography } from 'antd';
 import { ForkOutlined, StarFilled, StarTwoTone } from '@ant-design/icons';
+import { Image, Layout, Typography } from 'antd';
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 import { useAppDispatch, useAppSelector } from '../../../app-redux/hooks';
 import {
   forkGist,
@@ -12,8 +14,8 @@ import {
   selectIsStarred,
   selectIsStarredArr,
 } from '../../../app-redux/modules/gist/gistSlice';
-import { Link } from 'react-router-dom';
 import isUserLoggedIn from '../../../common/utils/auth';
+
 const { Content } = Layout;
 
 const Columns = () => {

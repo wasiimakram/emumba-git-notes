@@ -1,12 +1,13 @@
-import React from 'react';
-import { Layout } from 'antd';
 import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
+import { Layout } from 'antd';
+import React from 'react';
+
+import { useAppDispatch, useAppSelector } from '../../../app-redux/hooks';
 import {
   changePageLayout,
   selectPageLayout,
 } from '../../../app-redux/modules/gist/gistSlice';
-import { useDispatch } from 'react-redux';
-import { useAppDispatch, useAppSelector } from '../../../app-redux/hooks';
+
 const { Content } = Layout;
 
 type Props = {};

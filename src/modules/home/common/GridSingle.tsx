@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { Typography, Card, Col, Layout } from 'antd';
-import GistCode from '../../../components/common/GistCode';
-import { formatTimeDifference } from '../../../common/utils/timeUtils';
+import '../home.scss';
+
+import { Card, Col, Layout, Typography } from 'antd';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
-import './../home.scss';
+
+import { formatTimeDifference } from '../../../common/utils/timeUtils';
+import GistCode from '../../../components/common/GistCode';
 
 const { Title, Text } = Typography;
 const { Content } = Layout;

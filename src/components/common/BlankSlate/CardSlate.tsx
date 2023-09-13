@@ -1,6 +1,7 @@
-import React from 'react';
-import { Skeleton, Card, Col } from 'antd';
 import './card.scss';
+
+import { Card, Col, Skeleton } from 'antd';
+import React from 'react';
 
 type Props = {};
 const CardSlate = (props: Props) => {

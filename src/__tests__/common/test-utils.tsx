@@ -1,16 +1,16 @@
-import React, { PropsWithChildren } from 'react';
-import { render } from '@testing-library/react';
-import type { RenderOptions } from '@testing-library/react';
-import { configureStore } from '@reduxjs/toolkit';
 import type { PreloadedState } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
+import type { RenderOptions } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import type { PropsWithChildren } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
-import gistReducer from './../../app-redux/modules/gist/gistSlice';
-import profileReducer from './../../app-redux/modules/profile/profileSlice';
-
-import type { AppStore, RootState } from '../../app-redux/store';
-// As a basic setup, import your same slice reducers
-import userReducer from '../../app-redux/modules/gist/gistSlice';
 import { MemoryRouter } from 'react-router-dom';
+
+import gistReducer from '../../app-redux/modules/gist/gistSlice';
+import profileReducer from '../../app-redux/modules/profile/profileSlice';
+// As a basic setup, import your same slice reducers
+import type { AppStore, RootState } from '../../app-redux/store';
 
 // This type interface extends the default options for render from RTL, as well
 // as allows the user to specify other things such as initialState, store.
@@ -29,7 +29,7 @@ export function renderWithProviders(
       preloadedState,
     }),
     ...renderOptions
-  }: ExtendedRenderOptions = {}
+  }: ExtendedRenderOptions = {},
 ) {
   function Wrapper({ children }: PropsWithChildren<{}>): JSX.Element {
     return (

@@ -1,6 +1,6 @@
-import { MenuProps, Typography } from 'antd';
-import { Link, useHistory } from 'react-router-dom';
-import { useAppDispatch } from '../../../app-redux/hooks';
+import type { MenuProps } from 'antd';
+import { Typography } from 'antd';
+import { Link } from 'react-router-dom';
 
 export const items: MenuProps['items'] = [
   {

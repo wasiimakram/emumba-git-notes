@@ -1,10 +1,12 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
+
+import { screen, waitFor } from '@testing-library/react';
+
+import GridView from '../modules/home/common/GridView';
+import { matchMedia } from './common/common';
+import { renderWithProviders } from './common/test-utils';
 import { mockServer } from './mocks/mockApi';
 import { gistResponse } from './mocks/response';
-import { matchMedia } from './common/common';
-import '@testing-library/jest-dom';
-import { renderWithProviders } from './common/test-utils';
-import GridView from '../modules/home/common/GridView';
 
 beforeAll(() => mockServer.listen({ onUnhandledRequest: 'bypass' }));
 afterEach(() => mockServer.resetHandlers());
@@ -23,7 +25,7 @@ describe('GridView Data Display', () => {
     });
     // Check data from Api
     expect(
-      await screen.findByText(gistResponse[0].owner.type)
+      await screen.findByText(gistResponse[0].owner.type),
     ).toBeInTheDocument();
   });
 });

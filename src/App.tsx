@@ -1,15 +1,12 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import ProtectedRoute from './components/Route/ProtectedRoute';
-import routes from './components/Route/Routes';
 import './App.css';
 import './scss/style.scss';
-import { Header } from 'antd/es/layout/layout';
+
+import React from 'react';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
+
+import ProtectedRoute from './components/Route/ProtectedRoute';
+import routes from './components/Route/Routes';
 import Navbar from './modules/layout/Header';
-import Home from './modules/home/Home';
-import { Add, Details, Edit } from './modules/gist';
-import Profile from './modules/profile/Profile';
-import CallBack from './components/common/CallBack';
 
 function App() {
   return (

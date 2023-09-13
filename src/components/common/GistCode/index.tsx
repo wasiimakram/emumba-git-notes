@@ -1,7 +1,9 @@
+import './index.scss';
+
 import React from 'react';
 import ReactEmbedGist from 'react-embed-gist';
-import { GistProps } from '../../../common/typings/app';
-import './index.scss';
+
+import type { GistProps } from '../../../common/typings/app';
 
 const GistCode: React.FC<GistProps> = ({ id, file }) => {
   return (

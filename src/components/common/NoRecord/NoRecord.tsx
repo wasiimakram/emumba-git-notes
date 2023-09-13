@@ -1,6 +1,8 @@
-import React from 'react';
-import { Typography, Col } from 'antd';
 import './norecord.scss';
+
+import { Col, Typography } from 'antd';
+import React from 'react';
+
 type Props = {};
 const NoRecord: React.FC<Props> = ({}) => {
   return (

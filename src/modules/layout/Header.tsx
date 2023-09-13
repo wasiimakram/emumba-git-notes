@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { Layout, Typography, Input, Row, Col } from 'antd';
+import './layout.scss';
+
+import { Col, Layout, Row, Typography } from 'antd';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+
 import Buttons from './common/Button';
 import SearchInput from './common/Search';
-import { useHistory } from 'react-router-dom';
-import './layout.scss';
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;

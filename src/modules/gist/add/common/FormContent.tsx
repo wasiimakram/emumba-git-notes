@@ -1,8 +1,11 @@
-import React, { useEffect } from 'react';
-import { Layout, Input, Button, Form } from 'antd';
+import '../../gist.scss';
+
 import { MinusCircleOutlined } from '@ant-design/icons';
-import { AddFormValues } from '../../../../common/typings/app';
-import './../../gist.scss';
+import { Button, Form, Input, Layout } from 'antd';
+import React, { useEffect } from 'react';
+
+import type { AddFormValues } from '../../../../common/typings/app';
+
 const { Content } = Layout;
 const { TextArea } = Input;
 

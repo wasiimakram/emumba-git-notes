@@ -6,8 +6,8 @@ module.exports = {
     '^.+\\.tsx?$': 'ts-jest',
   },
   moduleNameMapper: {
-    "^.+\\.(css|less|scss)$": "babel-jest"
+    '^.+\\.(css|less|scss)$': 'babel-jest',
   },
-  modulePathIgnorePatterns:["mocks","common"],
-  setupTestFrameworkScriptFile:["<rootDir>/__mocks__/localStorage.ts"]
+  modulePathIgnorePatterns: ['mocks', 'common'],
+  // setupTestFrameworkScriptFile:["<rootDir>/__mocks__/localStorage.ts"]
 };

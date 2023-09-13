@@ -1,5 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Pagination, Layout } from 'antd';
+import '../home.scss';
+
+import { Layout, Pagination, Table } from 'antd';
+import React, { useEffect } from 'react';
+
+import { useAppDispatch, useAppSelector } from '../../../app-redux/hooks';
+import { getGistPublic } from '../../../app-redux/modules/gist/actions/gistActions';
 import {
   handlePageChange,
   resetListingValues,
@@ -9,11 +14,8 @@ import {
   selectPublicGist,
   selectTotal,
 } from '../../../app-redux/modules/gist/gistSlice';
-import { useAppDispatch, useAppSelector } from '../../../app-redux/hooks';
-import { getGistPublic } from '../../../app-redux/modules/gist/actions/gistActions';
 import Columns from './Column';
 import ToggleButtons from './ToggleButtons';
-import './../home.scss';
 
 const { Content } = Layout;
 
@@ -29,7 +31,7 @@ const ListView: React.FC = () => {
   }, [dispatch, page]);
   useEffect(() => {
     return () => {
-      //unmount
+      // unmount
       dispatch(resetListingValues());
     };
   }, []);

@@ -1,7 +1,9 @@
-import { configureStore, Action, ThunkAction } from "@reduxjs/toolkit";
-import thunkMiddleware from "redux-thunk";
-import gistReducer from './modules/gist/gistSlice'
-import profileReducer from './modules/profile/profileSlice'
+import type { Action, ThunkAction } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
+import thunkMiddleware from 'redux-thunk';
+
+import gistReducer from './modules/gist/gistSlice';
+import profileReducer from './modules/profile/profileSlice';
 
 export const store = configureStore({
   reducer: {
@@ -21,7 +23,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 >;
 export type IActionMeta<T = void> = {
   requestId: string;
-  requestStatus: "pending" | "fulfilled" | "rejected";
+  requestStatus: 'pending' | 'fulfilled' | 'rejected';
   arg?: T;
   aborted?: boolean;
   condition?: boolean;

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Layout, Typography, message } from 'antd';
+import './index.scss';
+
 import {
   DeleteOutlined,
   EditOutlined,
@@ -7,25 +7,25 @@ import {
   StarFilled,
   StarTwoTone,
 } from '@ant-design/icons';
-import isUserLoggedIn from '../../../common/utils/auth';
+import { Layout, message, Typography } from 'antd';
+import React from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+
+import { useAppDispatch, useAppSelector } from '../../../app-redux/hooks';
 import {
   forkGist,
   starGist,
 } from '../../../app-redux/modules/gist/actions/gistActions';
-import { useAppDispatch, useAppSelector } from '../../../app-redux/hooks';
-import { useHistory, useParams } from 'react-router-dom';
 import {
   deleteGistValue,
   selectForkCount,
   selectIsForked,
   selectIsStarredArr,
-  selectStarCount,
-} from '../../../app-redux/modules/gist/gistSlice';
-import {
   selectPage,
   selectPerPage,
+  selectStarCount,
 } from '../../../app-redux/modules/gist/gistSlice';
-import './index.scss';
+import isUserLoggedIn from '../../../common/utils/auth';
 
 const { Content } = Layout;
 const { Text } = Typography;
@@ -45,7 +45,7 @@ const GistButtons: React.FC<GistProps> = ({ gistId }) => {
   const pageId = id ?? gistId;
 
   const hadleEdit = () => {
-    console.log('EDIT CLICKED');
+    console.log('EDIT CLICKED', pageId, id, gistId);
     history.push(`/edit/${pageId}`);
   };
   const handleDelete = async () => {
@@ -69,11 +69,19 @@ const GistButtons: React.FC<GistProps> = ({ gistId }) => {
           </Text>
 
           <Text className="wrap">
-            <Text onClick={() => dispatch(starGist({ id: pageId }))}>
+            <Text
+              data-testid="star-button"
+              onClick={() => dispatch(starGist({ id: pageId }))}
+            >
               {isStaredArr.includes(pageId) ? (
-                <>
-                  <StarFilled /> Unstar
-                </>
+                (() => {
+                  console.log('Page is starred');
+                  return (
+                    <>
+                      <StarFilled data-testid="unstar-text" /> Unstar
+                    </>
+                  );
+                })()
               ) : (
                 <>
                   <StarTwoTone /> Star

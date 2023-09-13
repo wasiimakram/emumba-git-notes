@@ -1,7 +1,8 @@
-import { configureStore, Action, ThunkAction, combineReducers, PreloadedState } from "@reduxjs/toolkit";
-import thunkMiddleware from "redux-thunk";
-import gistReducer from './modules/gist/gistSlice'
-import profileReducer from './modules/profile/profileSlice'
+import type { Action, PreloadedState, ThunkAction } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+
+import gistReducer from './modules/gist/gistSlice';
+import profileReducer from './modules/profile/profileSlice';
 
 // export const store = configureStore({
 //   reducer: {
@@ -11,21 +12,20 @@ import profileReducer from './modules/profile/profileSlice'
 //   middleware: [thunkMiddleware],
 // });
 
-
 const rootReducer = combineReducers({
   gist: gistReducer,
   profile: profileReducer,
-})
+});
 export function setupStore(preloadedState?: PreloadedState<RootState>) {
   return configureStore({
     reducer: rootReducer,
-    preloadedState
-  })
+    preloadedState,
+  });
 }
 
-export type AppStore = ReturnType<typeof setupStore>
-export type AppDispatch = AppStore['dispatch']
-export type RootState = ReturnType<typeof rootReducer>
+export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = AppStore['dispatch'];
+export type RootState = ReturnType<typeof rootReducer>;
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
   RootState,
@@ -34,7 +34,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 >;
 export type IActionMeta<T = void> = {
   requestId: string;
-  requestStatus: "pending" | "fulfilled" | "rejected";
+  requestStatus: 'pending' | 'fulfilled' | 'rejected';
   arg?: T;
   aborted?: boolean;
   condition?: boolean;

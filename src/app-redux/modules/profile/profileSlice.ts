@@ -1,9 +1,12 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../../store--1";
-import { getMyGist } from "./actions/profileActions";
-import { ApiResponse, ProfileGistState } from "../../../common/typings/app";
-import { useAppDispatch } from "../../hooks";
-import { message } from "antd";
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+
+import type {
+  ApiResponse,
+  ProfileGistState,
+} from '../../../common/typings/app';
+import type { RootState } from '../../store--1';
+import { getMyGist } from './actions/profileActions';
 
 const initialState: ProfileGistState = {
   myGists: [],
@@ -17,7 +20,7 @@ const initialState: ProfileGistState = {
   forkCount: 0,
 };
 export const gistSlice = createSlice({
-  name: "profile",
+  name: 'profile',
   initialState,
   reducers: {
     handlePageChange: (state, action) => {
@@ -35,19 +38,17 @@ export const gistSlice = createSlice({
     builder.addCase(getMyGist.rejected, (state) => {
       state.loader = false;
     });
-    builder.addCase(getMyGist.fulfilled, (state, action: PayloadAction<ApiResponse>) => {
-      state.loader = false;
-      state.myGists = action.payload
-    });
-
-
-  }
+    builder.addCase(
+      getMyGist.fulfilled,
+      (state, action: PayloadAction<ApiResponse>) => {
+        state.loader = false;
+        state.myGists = action.payload;
+      },
+    );
+  },
 });
 
-export const {
-  handlePageChange,
-  handleManualNext,
-} = gistSlice.actions;
+export const { handlePageChange, handleManualNext } = gistSlice.actions;
 export const selectMyGist = (state: RootState) => state.profile.myGists;
 export const selectIsLoading = (state: RootState) => state.profile.loader;
 export const selectPage = (state: RootState) => state.profile.page;

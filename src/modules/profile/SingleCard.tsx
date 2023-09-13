@@ -1,22 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Typography,
-  Card,
-  Avatar,
-  Image,
-  Button,
-  Col,
-  Skeleton,
-  Pagination,
-  Layout,
-} from 'antd';
-
+import { Card, Layout, Pagination, Skeleton } from 'antd';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import GistCode from '../../components/common/GistCode';
-import { formatTimeDifference } from '../../common/utils/timeUtils';
-import ShortProfile from '../../components/common/Profile';
-import GistButtons from '../../components/common/GistButtons';
+
 import { useAppDispatch, useAppSelector } from '../../app-redux/hooks';
+import { getMyGist } from '../../app-redux/modules/profile/actions/profileActions';
 import {
   handlePageChange,
   selectIsLoading,
@@ -24,7 +11,11 @@ import {
   selectPage,
   selectPerPage,
 } from '../../app-redux/modules/profile/profileSlice';
-import { getMyGist } from '../../app-redux/modules/profile/actions/profileActions';
+import { formatTimeDifference } from '../../common/utils/timeUtils';
+import GistButtons from '../../components/common/GistButtons';
+import GistCode from '../../components/common/GistCode';
+import ShortProfile from '../../components/common/Profile';
+
 const { Content } = Layout;
 interface GridProps {}
 const SingleCard: React.FC<GridProps> = ({}) => {

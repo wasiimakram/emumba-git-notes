@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import { Layout, Typography, Image, Row, Col } from "antd";
-import SingleCard from "./SingleCard";
-import "./profile.scss";
+import './profile.scss';
+
+import { Col, Image, Layout, Row, Typography } from 'antd';
+import React from 'react';
+
+import SingleCard from './SingleCard';
 
 const { Content } = Layout;
 const { Title } = Typography;

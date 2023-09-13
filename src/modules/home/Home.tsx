@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Layout, Typography, Table } from 'antd';
-import ListView from './common/ListView';
-import GridView from './common/GridView';
-import { useAppSelector } from '../../app-redux/hooks';
-import { selectPageLayout } from '../../app-redux/modules/gist/gistSlice';
 import './home.scss';
+
+import { Layout } from 'antd';
+import React from 'react';
+
+import { useAppSelector } from '../../app-redux/hooks';
+import GridView from './common/GridView';
+import ListView from './common/ListView';
 
 const { Content } = Layout;
 

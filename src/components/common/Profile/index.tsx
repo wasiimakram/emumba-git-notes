@@ -1,6 +1,7 @@
-import React from "react";
-import { Layout, Typography } from "antd";
-import "./index.scss";
+import './index.scss';
+
+import { Layout, Typography } from 'antd';
+import React from 'react';
 
 const { Content } = Layout;
 const { Title, Text } = Typography;

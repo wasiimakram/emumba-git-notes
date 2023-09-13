@@ -1,10 +1,17 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../../store--1";
-import { createGistContent, deleteGist, forkGist, getGistDetails, getGistPublic, starGist } from "./actions/gistActions";
-import { ApiResponse, GistState } from "../../../common/typings/app";
-import { useAppDispatch } from "../../hooks";
-import { message } from "antd";
-import { getMyGist } from "../profile/actions/profileActions";
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import { message } from 'antd';
+
+import type { ApiResponse, GistState } from '../../../common/typings/app';
+import type { RootState } from '../../store--1';
+import {
+  createGistContent,
+  deleteGist,
+  forkGist,
+  getGistDetails,
+  getGistPublic,
+  starGist,
+} from './actions/gistActions';
 
 const initialState: GistState = {
   publicGist: [],
@@ -21,9 +28,10 @@ const initialState: GistState = {
   isStarredArr: [],
   isForkedArr: [],
   isDeleted: false,
+  message: '',
 };
 export const gistSlice = createSlice({
-  name: "gist",
+  name: 'gist',
   initialState,
   reducers: {
     handlePageChange: (state, action) => {
@@ -42,17 +50,19 @@ export const gistSlice = createSlice({
     },
     handleNavSearch: (state, action) => {
       const query = action.payload;
-      if (query !== "") {
+      if (query !== '') {
         state.publicGist = state.publicGist.filter((item: any) =>
-          item.id.toLowerCase().includes(query.toLowerCase())
+          item.id.toLowerCase().includes(query.toLowerCase()),
         );
       }
     },
     deleteGistValue: (state, action) => {
       const id = action.payload;
-      state.publicGist = state.publicGist.filter((item: Record<string, any>) => item.id !== id);
+      state.publicGist = state.publicGist.filter(
+        (item: Record<string, any>) => item.id !== id,
+      );
       state.isDeleted = true;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getGistPublic.pending, (state) => {
@@ -61,10 +71,13 @@ export const gistSlice = createSlice({
     builder.addCase(getGistPublic.rejected, (state) => {
       state.loader = false;
     });
-    builder.addCase(getGistPublic.fulfilled, (state, action: PayloadAction<ApiResponse>) => {
-      state.loader = false;
-      state.publicGist = action.payload
-    });
+    builder.addCase(
+      getGistPublic.fulfilled,
+      (state, action: PayloadAction<ApiResponse>) => {
+        state.loader = false;
+        state.publicGist = action.payload;
+      },
+    );
 
     // Get Gist Details
     builder.addCase(getGistDetails.pending, (state) => {
@@ -73,10 +86,13 @@ export const gistSlice = createSlice({
     builder.addCase(getGistDetails.rejected, (state) => {
       state.loader = false;
     });
-    builder.addCase(getGistDetails.fulfilled, (state, action: PayloadAction<ApiResponse>) => {
-      state.loader = false;
-      state.gistDetails = action.payload
-    });
+    builder.addCase(
+      getGistDetails.fulfilled,
+      (state, action: PayloadAction<ApiResponse>) => {
+        state.loader = false;
+        state.gistDetails = action.payload;
+      },
+    );
 
     // Give a Star to Gist
     builder.addCase(starGist.pending, (state) => {
@@ -85,14 +101,19 @@ export const gistSlice = createSlice({
     builder.addCase(starGist.rejected, (state) => {
       state.loader = false;
     });
-    builder.addCase(starGist.fulfilled, (state, action: PayloadAction<ApiResponse>) => {
-      const { payload } = action;
-      state.loader = false;
-      state.isStarred = !state.isStarred;
-      state.starCount = state.isStarred ? 1 : 0;
-      state.isStarredArr = [...state.isStarredArr, payload.staredId]
-      message.success(`Gist ${state.isStarred ? 'Stared' : 'Unstared'} successfully`)
-    });
+    builder.addCase(
+      starGist.fulfilled,
+      (state, action: PayloadAction<ApiResponse>) => {
+        const { payload } = action;
+        const alert = `Gist Stared successfully`;
+        state.loader = false;
+        state.isStarred = !state.isStarred;
+        state.starCount = state.isStarred ? 1 : 0;
+        state.isStarredArr = [...state.isStarredArr, payload.staredId];
+        state.message = alert;
+        message.success(alert);
+      },
+    );
     // Fork Gist
     builder.addCase(forkGist.pending, (state) => {
       state.loader = true;
@@ -100,13 +121,18 @@ export const gistSlice = createSlice({
     builder.addCase(forkGist.rejected, (state) => {
       state.loader = false;
     });
-    builder.addCase(forkGist.fulfilled, (state, action: PayloadAction<ApiResponse>) => {
-      state.loader = false;
-      state.isForked = !state.isForked;
-      state.forkCount = state.isForked ? 1 : 0;
-      state.isForkedArr = [...state.isStarredArr, action.payload.staredId]
-      message.success(`Gist ${state.isForked ? 'Forked' : 'Unsubscribed'} successfully`)
-    });
+    builder.addCase(
+      forkGist.fulfilled,
+      (state, action: PayloadAction<ApiResponse>) => {
+        state.loader = false;
+        state.isForked = !state.isForked;
+        state.forkCount = state.isForked ? 1 : 0;
+        state.isForkedArr = [...state.isStarredArr, action.payload.staredId];
+        message.success(
+          `Gist ${state.isForked ? 'Forked' : 'Unsubscribed'} successfully`,
+        );
+      },
+    );
     // Add Gist
     builder.addCase(createGistContent.pending, (state) => {
       state.loader = true;
@@ -114,10 +140,13 @@ export const gistSlice = createSlice({
     builder.addCase(createGistContent.rejected, (state) => {
       state.loader = false;
     });
-    builder.addCase(createGistContent.fulfilled, (state, action: PayloadAction<ApiResponse>) => {
-      state.loader = false;
-      // message.success(`Gist created successfully`)
-    });
+    builder.addCase(
+      createGistContent.fulfilled,
+      (state, action: PayloadAction<ApiResponse>) => {
+        state.loader = false;
+        // message.success(`Gist created successfully`)
+      },
+    );
     // Delete Gist
     builder.addCase(deleteGist.pending, (state) => {
       state.loader = true;
@@ -125,12 +154,14 @@ export const gistSlice = createSlice({
     builder.addCase(deleteGist.rejected, (state) => {
       state.loader = false;
     });
-    builder.addCase(deleteGist.fulfilled, (state, action: PayloadAction<ApiResponse>) => {
-      state.loader = false;
-      message.success(`Gist deleted successfully`);
-    });
-
-  }
+    builder.addCase(
+      deleteGist.fulfilled,
+      (state, action: PayloadAction<ApiResponse>) => {
+        state.loader = false;
+        message.success(`Gist deleted successfully`);
+      },
+    );
+  },
 });
 
 export const {

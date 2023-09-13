@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import '../gist.scss';
+
 import { Layout, Skeleton } from 'antd';
-import ShortProfile from '../../../components/common/Profile';
-import GistButtons from '../../../components/common/GistButtons';
+import React from 'react';
 import { useParams } from 'react-router-dom';
+
 import { useAppDispatch, useAppSelector } from '../../../app-redux/hooks';
 import { getGistDetails } from '../../../app-redux/modules/gist/actions/gistActions';
 import {
   selectGistDetails,
   selectIsLoading,
 } from '../../../app-redux/modules/gist/gistSlice';
-import GistCode from '../../../components/common/GistCode';
 import { formatTimeDifference } from '../../../common/utils/timeUtils';
-import './../gist.scss';
+import GistButtons from '../../../components/common/GistButtons';
+import GistCode from '../../../components/common/GistCode';
+import ShortProfile from '../../../components/common/Profile';
 
 const { Content } = Layout;
 
