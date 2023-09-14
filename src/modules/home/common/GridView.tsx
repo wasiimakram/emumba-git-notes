@@ -19,6 +19,7 @@ import NoRecord from '../../../components/common/NoRecord/NoRecord';
 import GridCard from './GridSingle';
 import PaginationWrap from './Pagination';
 import ToggleButtons from './ToggleButtons';
+import { Grid } from '@mui/material';
 
 interface GridProps {}
 const GridView: React.FC<GridProps> = ({}) => {
@@ -40,7 +41,7 @@ const GridView: React.FC<GridProps> = ({}) => {
   return (
     <div data-testid="grid-view">
       <ToggleButtons />
-      <Row className="grid-card-content">
+      <Grid className="grid-card-content" container spacing={2}>
         {pageRecord.length > 0 && !isLoading ? (
           pageRecord.map((item: Record<string, any>) => (
             <GridCard item={item} key={item.id} />
@@ -52,7 +53,7 @@ const GridView: React.FC<GridProps> = ({}) => {
             <CardSlate data-testid="loading" key={index} />
           ))
         )}
-      </Row>
+      </Grid>
       {pageRecord.length > 0 && <PaginationWrap />}
     </div>
   );

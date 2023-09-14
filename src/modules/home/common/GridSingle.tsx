@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 
 import { formatTimeDifference } from '../../../common/utils/timeUtils';
 import GistCode from '../../../components/common/GistCode';
+import { Grid } from '@mui/material';
 
 const { Title, Text } = Typography;
 const { Content } = Layout;
@@ -21,7 +22,7 @@ const GridCard: React.FC<GridProps> = ({ item }) => {
   };
   return (
     <>
-      <Col className="home-col-box" key={item.id} xs={24} sm={12} md={8} lg={8}>
+      <Grid className="home-col-box" key={item.id} xs={12} sm={6} md={4} lg={4}>
         <Card
           key={item.id}
           className="single-card"
@@ -39,7 +40,7 @@ const GridCard: React.FC<GridProps> = ({ item }) => {
             </Content>
           </Content>
         </Card>
-      </Col>
+      </Grid>
     </>
   );
 };

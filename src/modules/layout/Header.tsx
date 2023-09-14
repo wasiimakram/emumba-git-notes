@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 
 import Buttons from './common/Button';
 import SearchInput from './common/Search';
+import { Container } from '@mui/material';
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
@@ -21,7 +22,7 @@ const Navbar: React.FC = () => {
   };
   return (
     <Header className="app-header">
-      <Content className="ant-container">
+      <Container maxWidth="lg" className="ant-container">
         <Row>
           <Col span={8}>
             <Content
@@ -40,7 +41,7 @@ const Navbar: React.FC = () => {
             <SearchInput /> <Buttons handleLogin={handleLogin} />
           </Col>
         </Row>
-      </Content>
+      </Container>
     </Header>
   );
 };
