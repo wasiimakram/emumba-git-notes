@@ -76,7 +76,6 @@ const GistButtons: React.FC<GistProps> = ({ gistId, isUser }) => {
   if (staredData === undefined || staredData === null) {
     staredData = apiStaredData;
   }
-  console.log(apiStaredData);
   const isStared = isStaredGist(staredData, pageId);
   return (
     <Content className="icons">
