@@ -37,10 +37,10 @@ const SingleCard: React.FC<GridProps> = ({}) => {
   return (
     <Content className="gist-wrap">
       {!isLoading && pageRecord
-        ? pageRecord.map((item: any) => {
+        ? pageRecord.map((item: any, index: number) => {
             const file = Object.keys(item.files)[0];
             return (
-              <Content className="gist-wrap">
+              <Content className="gist-wrap" key={index}>
                 <Card>
                   <Content className="header">
                     <ShortProfile

@@ -10,15 +10,22 @@ const { Content } = Layout;
 const { TextArea } = Input;
 
 type Props = {
+  isReset: boolean;
   onFinish: (values: AddFormValues) => void;
 };
-const FormContent: React.FC<Props> = ({ onFinish }) => {
+const FormContent: React.FC<Props> = ({ onFinish, isReset }) => {
   const [form] = Form.useForm();
   useEffect(() => {
     form.setFieldsValue({
       files: [{ fileName: '', content: '' }],
     });
-  }, [form]);
+    if (isReset) {
+      form.resetFields();
+      form.setFieldsValue({
+        files: [{ fileName: '', content: '' }],
+      });
+    }
+  }, [isReset, form]);
   return (
     <Form
       form={form}
